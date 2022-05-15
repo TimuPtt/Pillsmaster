@@ -8,5 +8,9 @@ namespace Pillsmaster.Core.Models
 {
     internal class Take
     {
+        public Guid Id { get; set; }
+        public DateOnly TakeDate { get; set; }
+        public TimeOnly TakeTime { get; set; }
+
     }
 }
