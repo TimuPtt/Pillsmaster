@@ -1,4 +1,4 @@
-namespace Pillsmaster.Server
+namespace Pillsmaster.API
 {
     public class WeatherForecast
     {
