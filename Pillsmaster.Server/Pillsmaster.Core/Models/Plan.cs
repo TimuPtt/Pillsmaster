@@ -21,6 +21,8 @@ namespace Pillsmaster.Domain.Models
 
         public MedicationDay MedicationDay { get; set; }
 
+        public DateTime LastTakeTime { get; set; }
+
         public Guid TakeId { get; set; }
 
         public ICollection<Take> Takes { get; set; } 
