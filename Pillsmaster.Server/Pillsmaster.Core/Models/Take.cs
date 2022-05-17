@@ -4,13 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pillsmaster.Core.Models
+namespace Pillsmaster.Domain.Models
 {
-    internal class Take
+    public class Take
     {
         public Guid Id { get; set; }
-        public DateOnly TakeDate { get; set; }
-        public TimeOnly TakeTime { get; set; }
 
+        public DateTime TakeDateTime { get; set; }
+
+        public Guid PlanId { get; set; }
+
+        public Plan Plan { get; set; }
     }
 }

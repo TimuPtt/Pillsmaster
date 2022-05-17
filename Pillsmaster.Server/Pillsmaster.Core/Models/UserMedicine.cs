@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Pillsmaster.Core.Contracts;
+﻿
 
-namespace Pillsmaster.Core.Models
+namespace Pillsmaster.Domain.Models
 {
-    internal class UserMedicine : IUserMedicine
+    public class UserMedicine 
     {
-        public void CreateMedicine()
-        {
-            throw new NotImplementedException();
-        }
+        public Guid Id { get; set; }
+
+        public Guid UserId { get; set; }
+
+        public Guid UserPlanId { get; set; }
+
+        public Guid MedicineId { get; set; }
+
+        public Medicine Medicine { get; set; }
     }
 }

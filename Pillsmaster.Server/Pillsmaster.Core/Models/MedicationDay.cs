@@ -4,13 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pillsmaster.Core.Models
+namespace Pillsmaster.Domain.Models
 {
-    internal class MedicationDay
+    public class MedicationDay
     {
         public Guid Id { get; set; }
+
         public int TakesPerDay { get; set; }
+
         public double CountPerTake { get; set; }
-        public Queue<Take> Takes { get; set; }
+
+        public Guid PlanId { get; set; }
+
+        public Plan Plan { get; set; }
     }
 }

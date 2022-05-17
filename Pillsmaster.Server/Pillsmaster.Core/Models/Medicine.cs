@@ -1,17 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Pillsmaster.Core.Models
+namespace Pillsmaster.Domain.Models
 {
-    internal class Medicine
+    public class Medicine
     {
-        public Guid Id { get; set; }
+        public Guid MedicineId { get; set; }
+
+        [StringLength(30)]
+        [Required]
         public string TradeName { get; set; }
-        public string? InternationalName { get; set; }
-        public string PharmaType { get; set; }
+
+        [StringLength(30)]
+        public string InternationalName { get; set; } = string.Empty;
+
+        [StringLength(30)]
+        public string PharmaType { get; set; } = string.Empty;
+
         public int ActiveIngredientCount { get; set; }
+
+        public Guid UserId { get; set; }
+
+        public ICollection<UserMedicine> UserMedicines { get; set; }
     }
 }
