@@ -18,8 +18,6 @@ namespace Pillsmaster.Domain.Models
 
         public int ActiveIngredientCount { get; set; }
 
-        public Guid UserId { get; set; }
-
         public ICollection<UserMedicine> UserMedicines { get; set; }
     }
 }
