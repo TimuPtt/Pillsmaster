@@ -18,6 +18,6 @@ namespace Pillsmaster.Domain.Models
 
         public int ActiveIngredientCount { get; set; }
 
-        public ICollection<UserMedicine> UserMedicines { get; set; }
+        public ICollection<UserMedicine>? UserMedicines { get; set; }
     }
 }
