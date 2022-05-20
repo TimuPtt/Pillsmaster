@@ -12,7 +12,5 @@ namespace Pillsmaster.Application.Interfaces
         DbSet<Take> Takes { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-
-
     }
 }
