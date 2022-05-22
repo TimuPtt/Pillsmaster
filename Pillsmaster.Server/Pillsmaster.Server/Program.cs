@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Pillsmaster.Persistence;
+using Pillsmaster.Application.Services;
+using Pillsmaster.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +12,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<PillsmasterDbContext>(options =>
+builder.Services.AddDbContext<IPillsmasterDbContext, PillsmasterDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        b => b.MigrationsAssembly("Pillsmaster.API"));
 });
+
+builder.Services.AddTransient<IMedicineService, MedicineService>();
 
 var app = builder.Build();
 
