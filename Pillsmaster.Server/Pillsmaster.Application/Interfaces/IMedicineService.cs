@@ -3,9 +3,9 @@ using Pillsmaster.Domain.Models;
 
 namespace Pillsmaster.Application.Interfaces
 {
-    internal interface IMedicineService
+    public interface IMedicineService
     {
-        Task<Guid> CreateMedicine(MedicineViewModel medicine);
+        Task<Guid> CreateMedicine(MedicineViewModel medicine, CancellationToken cancellationToken);
         Task<List<Medicine>> ReadMedicinesByName(string name);
         Task<Medicine> ReadMedicineById(Guid id);
         Task UpdateMedicine(Medicine medicine);
