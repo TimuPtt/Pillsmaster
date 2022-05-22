@@ -13,11 +13,8 @@ namespace Pillsmaster.Application.Services
     {
         public MedicineService(IPillsmasterDbContext dbContext) : base(dbContext) { }
 
-        public async Task<Guid> CreateMedicine(MedicineViewModel medicineVm)
+        public async Task<Guid> CreateMedicine(MedicineViewModel medicineVm, CancellationToken cancellationToken)
         {
-            CancellationTokenSource source = new CancellationTokenSource();
-            CancellationToken token = source.Token;
-
             var medicine = new Medicine()
             {
                 MedicineId = Guid.NewGuid(),
@@ -27,8 +24,8 @@ namespace Pillsmaster.Application.Services
                 ActiveIngredientCount = medicineVm.ActiveIngredientCount
             };
 
-            await _dbContext.Medicines.AddAsync(medicine, token); 
-            await _dbContext.SaveChangesAsync(token).ConfigureAwait(false);
+            await _dbContext.Medicines.AddAsync(medicine, cancellationToken); 
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             return medicine.MedicineId;
         }
