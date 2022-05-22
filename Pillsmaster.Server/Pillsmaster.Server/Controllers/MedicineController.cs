@@ -11,11 +11,9 @@ namespace Pillsmaster.API.Controllers
     public class MedicineController : ControllerBase
     {
         private readonly IMedicineService _medicineService;
-        private readonly IPillsmasterDbContext _dbContext;
         public MedicineController(IMedicineService medicineService, IPillsmasterDbContext dbContext)
         {
             _medicineService = medicineService;
-            _dbContext = dbContext;
         }
 
         // GET: api/<MedicineController>
