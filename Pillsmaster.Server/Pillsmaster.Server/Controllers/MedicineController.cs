@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Pillsmaster.Application.Common.Exceptions;
 using Pillsmaster.Application.Interfaces;
 using Pillsmaster.Application.ViewModels;
+using Pillsmaster.Domain.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,6 +13,7 @@ namespace Pillsmaster.API.Controllers
     public class MedicineController : ControllerBase
     {
         private readonly IMedicineService _medicineService;
+
         public MedicineController(IMedicineService medicineService, IPillsmasterDbContext dbContext)
         {
             _medicineService = medicineService;
@@ -25,14 +28,45 @@ namespace Pillsmaster.API.Controllers
 
         // GET api/<MedicineController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<Medicine>> GetAsync(Guid id, 
+            CancellationToken cancellationToken)
         {
-            return "value";
+            try
+            {
+                var medicine = await _medicineService.ReadMedicineById(id, cancellationToken);
+                return Ok(medicine);
+            }
+            catch (NotFoundException e)
+            {
+                return BadRequest($"Medicine not found (Exception: {e.Message})");
+            }
+        }
+
+        /// <summary>
+        /// GET api/<MedicineController>/GetByTradeName
+        /// </summary>
+        /// <param name="tradeName">Medicine trade name</param>
+        /// <param name="cancellationToken">token</param>
+        /// <returns>Medicine</returns>
+        [HttpGet("GetByTradeName/{tradeName}")]
+        public async Task<ActionResult<IEnumerable<Medicine>>> GetByTradeName(string tradeName, 
+            CancellationToken cancellationToken)
+        {
+            try
+            {
+                var medicine = await _medicineService.ReadMedicinesByName(tradeName, cancellationToken);
+                return Ok(medicine);
+            }
+            catch (NotFoundException e)
+            {
+                return BadRequest($"Medicine not found (Exception: {e.Message})");
+            }
         }
 
         // POST api/<MedicineController>
         [HttpPost]
-        public async Task<ActionResult<Guid>> Post(CancellationToken cancellationToken, [FromBody] MedicineViewModel medicineVm)
+        public async Task<ActionResult<Guid>> Post([FromBody] MedicineViewModel medicineVm,
+            CancellationToken cancellationToken)
         {
             var medicineId = await _medicineService.CreateMedicine(medicineVm, cancellationToken);
             return Ok(medicineId);
@@ -40,14 +74,33 @@ namespace Pillsmaster.API.Controllers
 
         // PUT api/<MedicineController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult> Put(Guid id, [FromBody] MedicineViewModel medicineVm, 
+            CancellationToken cancellationToken)
         {
+            try
+            {
+                await _medicineService.UpdateMedicine(id, medicineVm, cancellationToken);
+                return Ok();
+            }
+            catch (NotFoundException e)
+            {
+                return BadRequest($"Medicine not found (Exception: {e.Message})");
+            }
         }
 
         // DELETE api/<MedicineController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
+            try
+            {
+                await _medicineService.DeleteMedicine(id, cancellationToken);
+                return Ok();
+            }
+            catch (NotFoundException e)
+            {
+                return BadRequest($"Medicine not found (Exception: {e.Message})");
+            }
         }
     }
 }
