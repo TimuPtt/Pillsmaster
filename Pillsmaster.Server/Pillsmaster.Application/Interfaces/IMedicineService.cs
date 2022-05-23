@@ -6,9 +6,9 @@ namespace Pillsmaster.Application.Interfaces
     public interface IMedicineService
     {
         Task<Guid> CreateMedicine(MedicineViewModel medicine, CancellationToken cancellationToken);
-        Task<List<Medicine>> ReadMedicinesByName(string name);
-        Task<Medicine> ReadMedicineById(Guid id);
-        Task UpdateMedicine(Medicine medicine);
-        Task DeleteMedicine(Guid id);
+        Task<List<Medicine>> ReadMedicinesByName(string name, CancellationToken cancellationToken);
+        Task<Medicine> ReadMedicineById(Guid id, CancellationToken cancellationToken);
+        Task UpdateMedicine(Guid id, MedicineViewModel medicineVm, CancellationToken cancellationToken);
+        Task DeleteMedicine(Guid id, CancellationToken cancellationToken);
     }
 }
