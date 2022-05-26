@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace Pillsmaster.Domain.Models
 {
     public class Plan
@@ -13,18 +14,18 @@ namespace Pillsmaster.Domain.Models
 
         public bool IsEnoughToFinish { get; set; }
 
-        public string FoodStatus { get; set; }
+        public string? FoodStatus { get; set; }
 
-        public string PlanStatus { get; set; }
+        public bool IsFoodDependent { get; set; }
+
+        public string? PlanStatus { get; set; }
 
         public Guid MedicationDayId { get; set; }
 
         public MedicationDay MedicationDay { get; set; }
 
-        public DateTime LastTakeTime { get; set; }
+        public DateTime? LastTakeTime { get; set; }
 
-        public Guid TakeId { get; set; }
-
-        public ICollection<Take> Takes { get; set; } 
+        public Queue<Take> Takes { get; set; } 
     }
 }

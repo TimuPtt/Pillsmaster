@@ -11,6 +11,6 @@ namespace Pillsmaster.Domain.Models
 
         public double CountPerTake { get; set; }
 
-        public Plan Plan { get; set; }
+        public Plan? Plan { get; set; }
     }
 }
