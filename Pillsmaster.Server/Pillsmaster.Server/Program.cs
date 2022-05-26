@@ -1,3 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using Pillsmaster.Persistence;
+using Pillsmaster.Application.Services;
+using Pillsmaster.Application.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +11,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<IPillsmasterDbContext, PillsmasterDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        b => b.MigrationsAssembly("Pillsmaster.API"));
+});
+
+builder.Services.AddTransient<IMedicineService, MedicineService>();
 
 var app = builder.Build();
 

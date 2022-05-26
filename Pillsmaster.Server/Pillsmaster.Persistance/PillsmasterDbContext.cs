@@ -14,6 +14,5 @@ namespace Pillsmaster.Persistence
         public DbSet<Take> Takes { get; set; }
 
         public PillsmasterDbContext(DbContextOptions<PillsmasterDbContext> options) : base(options) { }
-
     }
 }

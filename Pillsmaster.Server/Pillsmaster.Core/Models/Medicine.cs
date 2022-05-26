@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Pillsmaster.Domain.Models
 {
@@ -18,6 +19,7 @@ namespace Pillsmaster.Domain.Models
 
         public int ActiveIngredientCount { get; set; }
 
-        public ICollection<UserMedicine> UserMedicines { get; set; }
+        [JsonIgnore]
+        public ICollection<UserMedicine>? UserMedicines { get; set; }
     }
 }
