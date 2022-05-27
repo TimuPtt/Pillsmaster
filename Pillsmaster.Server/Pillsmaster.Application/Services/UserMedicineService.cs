@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+
 using Pillsmaster.Application.Common.Exceptions;
 using Pillsmaster.Application.Interfaces;
 using Pillsmaster.Application.ViewModels;
@@ -10,7 +11,7 @@ namespace Pillsmaster.Application.Services
     {
         public UserMedicineService(IPillsmasterDbContext dbContext) : base(dbContext) { }
 
-        public async Task<Guid> CreateUserMedicine(UserMedicineViewModel userMedicineVm, 
+        public async Task<UserMedicine> CreateUserMedicine(UserMedicineViewModel userMedicineVm, 
             CancellationToken cancellationToken)
         {
             var userMedicine = new UserMedicine()
@@ -25,7 +26,7 @@ namespace Pillsmaster.Application.Services
             await _dbContext.SaveChangesAsync(cancellationToken)
                 .ConfigureAwait(false);
 
-            return userMedicine.Id;
+            return userMedicine;
         }
 
         public async Task<List<UserMedicine>> ReadUserMedicines(Guid userId, 
@@ -33,6 +34,7 @@ namespace Pillsmaster.Application.Services
         {
             var userMedicines = await _dbContext.UserMedicines
                 .Where(userMedicine => userMedicine.UserId == userId)
+                .Include(userMedicine => userMedicine.Medicine)
                 .ToListAsync(cancellationToken);
 
             if (!userMedicines.Any())
@@ -41,7 +43,7 @@ namespace Pillsmaster.Application.Services
             return userMedicines;
         }
 
-        public async Task UpdateUserMedicine(Guid userMedicineId, UserMedicineViewModel userMedicineVm, 
+        public async Task<UserMedicine> UpdateUserMedicine(Guid userMedicineId, UserMedicineViewModel userMedicineVm, 
             CancellationToken cancellationToken)
         {
             var dbUserMedicine = await _dbContext.UserMedicines
@@ -49,6 +51,8 @@ namespace Pillsmaster.Application.Services
 
             if(dbUserMedicine is null)
                 throw new NotFoundException(typeof(UserMedicine), userMedicineId);
+
+            return dbUserMedicine;
         }
 
         public async Task DeleteUserMedicine(Guid userMedicineId, 
