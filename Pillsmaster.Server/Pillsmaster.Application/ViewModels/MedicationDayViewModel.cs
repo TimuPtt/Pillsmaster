@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Pillsmaster.Application.ViewModels
 {
-    internal class MedicationDayViewModel
+    public class MedicationDayViewModel
     {
+        public int TakesPerDay { get; set; }
+
+        public double CountPerTake { get; set; }
     }
 }

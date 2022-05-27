@@ -4,8 +4,6 @@ namespace Pillsmaster.Application.ViewModels
 {
     public class PlanViewModel
     {
-        public Guid UserId { get; set; }
-
         public int MedicineCount { get; set; }
 
         public int Duration { get; set; }
@@ -18,10 +16,10 @@ namespace Pillsmaster.Application.ViewModels
 
         public string? PlanStatus { get; set; }
 
-        public Guid MedicationDayId { get; set; }
+        public MedicationDayViewModel MedicationDayVm { get; set; }
 
         public DateTime? LastTakeTime { get; set; }
 
-        public Queue<Take> Takes { get; set; }
+        public List<TakeViewModel> Takes { get; set; }
     }
 }
