@@ -26,6 +26,6 @@ namespace Pillsmaster.Domain.Models
 
         public DateTime? LastTakeTime { get; set; }
 
-        public Queue<Take> Takes { get; set; } 
+        public List<Take>? Takes { get; set; } 
     }
 }
