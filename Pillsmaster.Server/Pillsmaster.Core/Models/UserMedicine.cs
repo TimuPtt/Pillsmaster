@@ -12,6 +12,6 @@ namespace Pillsmaster.Domain.Models
 
         public Guid MedicineId { get; set; }
 
-        public Medicine? Medicine { get; set; }
+        public Medicine Medicine { get; set; }
     }
 }
