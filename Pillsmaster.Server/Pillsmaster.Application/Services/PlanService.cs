@@ -1,4 +1,6 @@
-﻿using Pillsmaster.Application.Common.Exceptions;
+﻿using Microsoft.EntityFrameworkCore;
+
+using Pillsmaster.Application.Common.Exceptions;
 using Pillsmaster.Application.Interfaces;
 using Pillsmaster.Application.ViewModels;
 using Pillsmaster.Domain.Models;
@@ -9,17 +11,8 @@ namespace Pillsmaster.Application.Services
     {
         public PlanService(IPillsmasterDbContext dbContext) : base(dbContext) { }
 
-        public async Task<Guid> CreatePlan(MedicationDayViewModel medicationDayVm, PlanViewModel planVm,  CancellationToken cancellationToken)
+        public async Task<Plan> CreatePlan(PlanViewModel planVm,  CancellationToken cancellationToken)
         {
-            var medicationDay = new MedicationDay()
-            {
-                Id = Guid.NewGuid(),
-                CountPerTake = medicationDayVm.CountPerTake,
-                TakesPerDay = medicationDayVm.TakesPerDay
-            };
-
-            await _dbContext.MedicationDays.AddAsync(medicationDay, cancellationToken);
-
             var plan = new Plan()
             {
                 Id = Guid.NewGuid(),
@@ -29,20 +22,40 @@ namespace Pillsmaster.Application.Services
                 FoodStatus = planVm.FoodStatus,
                 PlanStatus = planVm.PlanStatus,
                 IsFoodDependent = planVm.IsFoodDependent,
-                MedicationDayId = medicationDay.Id,
+                MedicationDay = new MedicationDay()
+                {
+                    Id = Guid.NewGuid(),
+                    CountPerTake = planVm.MedicationDayVm.CountPerTake,
+                    TakesPerDay = planVm.MedicationDayVm.TakesPerDay
+                },
                 LastTakeTime = planVm.LastTakeTime,
-                Takes = planVm.Takes
             };
+
+            plan.Takes = new List<Take>();
+
+            foreach (var takeVm in planVm.Takes)
+            {
+                plan.Takes.Add(
+                    new Take()
+                    {
+                        Id = Guid.NewGuid(),
+                        PlanId = plan.Id,
+                        TakeDateTime = takeVm.TakeDateTime
+                    });
+            }
 
             await _dbContext.Plans.AddAsync(plan, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-            return plan.Id;
+            return plan;
         }
 
         public async Task<Plan> ReadPlan(Guid planId, CancellationToken cancellationToken)
         {
-            var plan = await _dbContext.Plans.FindAsync(planId, cancellationToken);
+            var plan = await _dbContext.Plans
+                .Include(plan => plan.MedicationDay)
+                .Include(plan => plan.Takes)
+                .FirstOrDefaultAsync(plan => plan.Id == planId, cancellationToken);
 
             if (plan is null)
                 throw new NotFoundException(typeof(Plan), planId);
@@ -50,7 +63,7 @@ namespace Pillsmaster.Application.Services
             return plan;
         }
 
-        public async Task UpdatePlan(Guid planId, PlanViewModel planVm, CancellationToken cancellationToken)
+        public async Task<Plan> UpdatePlan(Guid planId, PlanViewModel planVm, CancellationToken cancellationToken)
         {
             var dbPlan = await ReadPlan(planId, cancellationToken);
 
@@ -60,11 +73,14 @@ namespace Pillsmaster.Application.Services
             dbPlan.FoodStatus = planVm.FoodStatus;
             dbPlan.PlanStatus = planVm.PlanStatus;
             dbPlan.IsFoodDependent = planVm.IsFoodDependent;
+            dbPlan.MedicationDay.CountPerTake = planVm.MedicationDayVm.CountPerTake;
+            dbPlan.MedicationDay.TakesPerDay = planVm.MedicationDayVm.TakesPerDay;
             dbPlan.LastTakeTime = planVm.LastTakeTime;
-            dbPlan.Takes = planVm.Takes;
 
             await _dbContext.SaveChangesAsync(cancellationToken)
                 .ConfigureAwait(false);
+
+            return dbPlan;
         }
 
         public async Task DeletePlan(Guid planId, CancellationToken cancellationToken)
