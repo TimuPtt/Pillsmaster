@@ -9,7 +9,5 @@ namespace Pillsmaster.Application.ViewModels
         public Guid UserPlanId { get; set; }
 
         public Guid MedicineId { get; set; }
-
-        public Medicine? Medicine { get; set; }
     }
 }
