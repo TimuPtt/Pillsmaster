@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using Pillsmaster.Application.Common.Exceptions;
 using Pillsmaster.Application.Interfaces;
@@ -11,6 +12,7 @@ namespace Pillsmaster.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlanController : ControllerBase
     {
         private readonly IPlanService _planService;
@@ -18,13 +20,6 @@ namespace Pillsmaster.API.Controllers
         public PlanController(IPlanService planService)
         {
             _planService = planService;
-        }
-
-        // GET: api/<PlanController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
         }
 
         // GET api/<PlanController>/5

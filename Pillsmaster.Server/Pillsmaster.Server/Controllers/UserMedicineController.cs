@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using Pillsmaster.Application.Common.Exceptions;
 using Pillsmaster.Application.Interfaces;
@@ -9,6 +10,7 @@ namespace Pillsmaster.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserMedicineController : ControllerBase
     {
         private readonly IUserMedicineService _userMedicineService;
