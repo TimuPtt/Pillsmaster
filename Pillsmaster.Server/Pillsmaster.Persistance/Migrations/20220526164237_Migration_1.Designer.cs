@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pillsmaster.Persistence;
 
@@ -11,9 +12,10 @@ using Pillsmaster.Persistence;
 namespace Pillsmaster.Persistence.Migrations
 {
     [DbContext(typeof(PillsmasterDbContext))]
-    partial class PillsmasterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220526164237_Migration_1")]
+    partial class Migration_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,15 +80,13 @@ namespace Pillsmaster.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FoodStatus")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsEnoughToFinish")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsFoodDependent")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastTakeTime")
+                    b.Property<DateTime>("LastTakeTime")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("MedicationDayId")
@@ -96,7 +96,11 @@ namespace Pillsmaster.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PlanStatus")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TakeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -185,7 +189,8 @@ namespace Pillsmaster.Persistence.Migrations
 
             modelBuilder.Entity("Pillsmaster.Domain.Models.MedicationDay", b =>
                 {
-                    b.Navigation("Plan");
+                    b.Navigation("Plan")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Pillsmaster.Domain.Models.Medicine", b =>

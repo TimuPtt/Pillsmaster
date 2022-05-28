@@ -10,7 +10,5 @@ namespace Pillsmaster.Domain.Models
         public int TakesPerDay { get; set; }
 
         public double CountPerTake { get; set; }
-
-        public Plan Plan { get; set; }
     }
 }

@@ -19,6 +19,8 @@ builder.Services.AddDbContext<IPillsmasterDbContext, PillsmasterDbContext>(optio
 });
 
 builder.Services.AddTransient<IMedicineService, MedicineService>();
+builder.Services.AddTransient<IUserMedicineService, UserMedicineService>();
+builder.Services.AddTransient<IPlanService, PlanService>();
 
 var app = builder.Build();
 

@@ -1,13 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Pillsmaster.Domain.Models;
 
-namespace Pillsmaster.Domain.Models
+namespace Pillsmaster.Application.ViewModels
 {
-    public class Plan
+    public class PlanViewModel
     {
-        public Guid Id { get; set; }
-
-        public Guid UserId { get; set; }
-
         public int MedicineCount { get; set; }
 
         public int Duration { get; set; }
@@ -20,12 +16,10 @@ namespace Pillsmaster.Domain.Models
 
         public string? PlanStatus { get; set; }
 
-        public Guid MedicationDayId { get; set; }
-
-        public MedicationDay MedicationDay { get; set; }
+        public MedicationDayViewModel MedicationDayVm { get; set; }
 
         public DateTime? LastTakeTime { get; set; }
 
-        public List<Take>? Takes { get; set; } 
+        public List<TakeViewModel> Takes { get; set; }
     }
 }
