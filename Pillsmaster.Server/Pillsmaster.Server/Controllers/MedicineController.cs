@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
 using Pillsmaster.Application.Common.Exceptions;
 using Pillsmaster.Application.Interfaces;
 using Pillsmaster.Application.ViewModels;
@@ -10,6 +12,7 @@ namespace Pillsmaster.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MedicineController : ControllerBase
     {
         private readonly IMedicineService _medicineService;
@@ -17,13 +20,6 @@ namespace Pillsmaster.API.Controllers
         public MedicineController(IMedicineService medicineService, IPillsmasterDbContext dbContext)
         {
             _medicineService = medicineService;
-        }
-
-        // GET: api/<MedicineController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
         }
 
         // GET api/<MedicineController>/5
@@ -38,7 +34,7 @@ namespace Pillsmaster.API.Controllers
             }
             catch (NotFoundException e)
             {
-                return BadRequest($"Medicine not found (Exception: {e.Message})");
+                return NotFound($"Medicine not found (Exception: {e.Message})");
             }
         }
 
@@ -48,7 +44,7 @@ namespace Pillsmaster.API.Controllers
         /// <param name="tradeName">Medicine trade name</param>
         /// <param name="cancellationToken">token</param>
         /// <returns>Medicine</returns>
-        [HttpGet("GetByTradeName/{tradeName}")]
+        [HttpGet("GetByTradename/{tradeName}")]
         public async Task<ActionResult<IEnumerable<Medicine>>> GetByTradeName(string tradeName, 
             CancellationToken cancellationToken)
         {
@@ -59,7 +55,7 @@ namespace Pillsmaster.API.Controllers
             }
             catch (NotFoundException e)
             {
-                return BadRequest($"Medicine not found (Exception: {e.Message})");
+                return NotFound($"Medicine not found (Exception: {e.Message})");
             }
         }
 
@@ -84,7 +80,7 @@ namespace Pillsmaster.API.Controllers
             }
             catch (NotFoundException e)
             {
-                return BadRequest($"Medicine not found (Exception: {e.Message})");
+                return NotFound($"Medicine not found (Exception: {e.Message})");
             }
         }
 
@@ -99,7 +95,7 @@ namespace Pillsmaster.API.Controllers
             }
             catch (NotFoundException e)
             {
-                return BadRequest($"Medicine not found (Exception: {e.Message})");
+                return NotFound($"Medicine not found (Exception: {e.Message})");
             }
         }
     }

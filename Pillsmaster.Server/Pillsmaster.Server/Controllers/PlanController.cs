@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using Pillsmaster.Application.Common.Exceptions;
 using Pillsmaster.Application.Interfaces;
@@ -11,6 +12,7 @@ namespace Pillsmaster.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlanController : ControllerBase
     {
         private readonly IPlanService _planService;
@@ -18,13 +20,6 @@ namespace Pillsmaster.API.Controllers
         public PlanController(IPlanService planService)
         {
             _planService = planService;
-        }
-
-        // GET: api/<PlanController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
         }
 
         // GET api/<PlanController>/5
@@ -57,18 +52,31 @@ namespace Pillsmaster.API.Controllers
         public async Task<ActionResult<Plan>> Put(Guid planId, [FromBody] PlanViewModel planVm,
             CancellationToken cancellationToken)
         {
-            var updatedPlan = await _planService.UpdatePlan(planId, planVm, cancellationToken);
-
-            return Ok(updatedPlan);
+            try
+            {
+                var updatedPlan = await _planService.UpdatePlan(planId, planVm, cancellationToken);
+                return Ok(updatedPlan);
+            }
+            catch(NotFoundException e)
+            {
+                return NotFound($"Plan not found (Exception: {e.Message})");
+            }
+            
         }
 
         // DELETE api/<PlanController>/5
         [HttpDelete("{planId}")]
         public async Task<ActionResult> Delete(Guid planId, CancellationToken cancellationToken)
         {
-            await _planService.DeletePlan(planId, cancellationToken);
-
-            return Ok();
+            try
+            {
+                await _planService.DeletePlan(planId, cancellationToken);
+                return Ok();
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound($"Plan not found (Exception: {e.Message})");
+            }
         }
     }
 }
