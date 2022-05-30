@@ -52,18 +52,31 @@ namespace Pillsmaster.API.Controllers
         public async Task<ActionResult<Plan>> Put(Guid planId, [FromBody] PlanViewModel planVm,
             CancellationToken cancellationToken)
         {
-            var updatedPlan = await _planService.UpdatePlan(planId, planVm, cancellationToken);
-
-            return Ok(updatedPlan);
+            try
+            {
+                var updatedPlan = await _planService.UpdatePlan(planId, planVm, cancellationToken);
+                return Ok(updatedPlan);
+            }
+            catch(NotFoundException e)
+            {
+                return NotFound($"Plan not found (Exception: {e.Message})");
+            }
+            
         }
 
         // DELETE api/<PlanController>/5
         [HttpDelete("{planId}")]
         public async Task<ActionResult> Delete(Guid planId, CancellationToken cancellationToken)
         {
-            await _planService.DeletePlan(planId, cancellationToken);
-
-            return Ok();
+            try
+            {
+                await _planService.DeletePlan(planId, cancellationToken);
+                return Ok();
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound($"Plan not found (Exception: {e.Message})");
+            }
         }
     }
 }
