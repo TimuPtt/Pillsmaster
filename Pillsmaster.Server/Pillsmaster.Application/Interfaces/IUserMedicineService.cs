@@ -5,7 +5,7 @@ namespace Pillsmaster.Application.Interfaces
 {
     public interface IUserMedicineService
     {
-        Task<UserMedicine> CreateUserMedicine(UserMedicineViewModel userMedicineVm,
+        Task<UserMedicine> CreateUserMedicine(Guid userId, UserMedicineViewModel userMedicineVm,
             CancellationToken cancellationToken);
         Task<List<UserMedicine>> ReadUserMedicines(Guid userId, CancellationToken cancellationToken);
 

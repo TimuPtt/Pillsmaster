@@ -11,11 +11,12 @@ namespace Pillsmaster.Application.Services
     {
         public PlanService(IPillsmasterDbContext dbContext) : base(dbContext) { }
 
-        public async Task<Plan> CreatePlan(PlanViewModel planVm,  CancellationToken cancellationToken)
+        public async Task<Plan> CreatePlan(Guid userId, PlanViewModel planVm,  CancellationToken cancellationToken)
         {
             var plan = new Plan()
             {
                 Id = Guid.NewGuid(),
+                UserId = userId,
                 MedicineCount = planVm.MedicineCount,
                 Duration = planVm.Duration,
                 IsEnoughToFinish = planVm.IsEnoughToFinish,

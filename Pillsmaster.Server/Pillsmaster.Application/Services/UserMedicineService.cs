@@ -11,13 +11,13 @@ namespace Pillsmaster.Application.Services
     {
         public UserMedicineService(IPillsmasterDbContext dbContext) : base(dbContext) { }
 
-        public async Task<UserMedicine> CreateUserMedicine(UserMedicineViewModel userMedicineVm, 
+        public async Task<UserMedicine> CreateUserMedicine(Guid userId, UserMedicineViewModel userMedicineVm, 
             CancellationToken cancellationToken)
         {
             var userMedicine = new UserMedicine()
             {
                 Id = Guid.NewGuid(),
-                UserId = userMedicineVm.UserId,
+                UserId = userId,
                 UserPlanId = userMedicineVm.UserPlanId,
                 MedicineId = userMedicineVm.MedicineId
             };

@@ -90,7 +90,7 @@ namespace Pillsmaster.Application.Services
         {
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Sid, user.Id.ToString()),
+                new Claim("UserId", user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Email)
             };
 

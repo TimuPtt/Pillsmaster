@@ -5,7 +5,7 @@ namespace Pillsmaster.Application.Interfaces
 {
     public interface IPlanService
     {
-        Task<Plan> CreatePlan(PlanViewModel planVm, CancellationToken cancellationToken);
+        Task<Plan> CreatePlan(Guid userId, PlanViewModel planVm, CancellationToken cancellationToken);
         Task<Plan> ReadPlan(Guid planId, CancellationToken cancellationToken);
         Task<Plan> UpdatePlan(Guid planId, PlanViewModel planVm, CancellationToken cancellationToken);
         Task DeletePlan(Guid planId, CancellationToken cancellationToken);

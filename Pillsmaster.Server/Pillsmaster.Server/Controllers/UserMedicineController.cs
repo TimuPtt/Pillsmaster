@@ -15,18 +15,18 @@ namespace Pillsmaster.API.Controllers
     {
         private readonly IUserMedicineService _userMedicineService;
 
-        public UserMedicineController(IUserMedicineService userMedicineService, IPillsmasterDbContext dbContext)
+        public UserMedicineController(IUserMedicineService userMedicineService)
         {
             _userMedicineService = userMedicineService;
         }
 
         // GET: api/<UserMedicineController>
-        [HttpGet("{userId}")]
-        public async Task<ActionResult<List<UserMedicine>>> GetUserMedicines(Guid userId, 
-            CancellationToken cancellationToken)
+        [HttpGet]
+        public async Task<ActionResult<List<UserMedicine>>> GetUserMedicines(CancellationToken cancellationToken)
         {
             try
             {
+                var userId = GetUserId();
                 var userMedicines = await _userMedicineService.ReadUserMedicines(userId, cancellationToken);
                 return Ok(userMedicines);
             }
@@ -41,9 +41,17 @@ namespace Pillsmaster.API.Controllers
         public async Task<ActionResult<UserMedicine>> Post([FromBody] UserMedicineViewModel userMedicineVm,
             CancellationToken cancellationToken)
         {
-            var userMedicine = await _userMedicineService.CreateUserMedicine(userMedicineVm, cancellationToken);
+            var userId = GetUserId();
+                
+            var userMedicine = await _userMedicineService.CreateUserMedicine(userId, userMedicineVm, cancellationToken);
 
             return Ok(userMedicine);
+        }
+
+        private Guid GetUserId()
+        {
+            return Guid.Parse(User?.Claims
+                .FirstOrDefault(c => c.Type == "UserId")?.Value);
         }
 
         // PUT api/<UserMedicineController>/5

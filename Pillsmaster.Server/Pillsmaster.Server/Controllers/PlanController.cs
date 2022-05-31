@@ -42,7 +42,8 @@ namespace Pillsmaster.API.Controllers
         public async Task<ActionResult<Plan>> Post([FromBody] PlanViewModel planVm, 
             CancellationToken cancellationToken)
         {
-            var plan = await _planService.CreatePlan(planVm, cancellationToken);
+            var userId = GetUserId();
+            var plan = await _planService.CreatePlan(userId, planVm, cancellationToken);
 
             return Ok(plan);
         }
@@ -77,6 +78,12 @@ namespace Pillsmaster.API.Controllers
             {
                 return NotFound($"Plan not found (Exception: {e.Message})");
             }
+        }
+
+        private Guid GetUserId()
+        {
+            return Guid.Parse(User?.Claims
+                .FirstOrDefault(c => c.Type == "UserId")?.Value);
         }
     }
 }
