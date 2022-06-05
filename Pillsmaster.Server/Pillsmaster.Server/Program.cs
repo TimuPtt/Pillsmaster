@@ -56,7 +56,6 @@ builder.Services.AddDbContext<IPillsmasterDbContext, PillsmasterDbContext>(optio
         b => b.MigrationsAssembly("Pillsmaster.API"));
 });
 
-
 builder.Services.AddTransient<IAuthorizationService, AuthorizationService>();
 builder.Services.AddTransient<IMedicineService, MedicineService>();
 builder.Services.AddTransient<IUserMedicineService, UserMedicineService>();
