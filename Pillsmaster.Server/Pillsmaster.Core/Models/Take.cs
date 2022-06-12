@@ -10,7 +10,7 @@ namespace Pillsmaster.Domain.Models
     {
         public Guid Id { get; set; }
 
-        public DateTime TakeDateTime { get; set; }
+        public DateTime TakeTime { get; set; }
 
         public Guid PlanId { get; set; }
     }

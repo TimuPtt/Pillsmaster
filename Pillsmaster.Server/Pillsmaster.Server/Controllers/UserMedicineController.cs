@@ -72,12 +72,12 @@ namespace Pillsmaster.API.Controllers
         }
 
         // DELETE api/<UserMedicineController>/5
-        [HttpDelete("{userMedecineId}")]
-        public async Task<ActionResult> Delete(Guid userMedecineId, CancellationToken cancellationToken)
+        [HttpDelete("{userMedicineId}")]
+        public async Task<ActionResult> Delete(Guid userMedicineId, CancellationToken cancellationToken)
         {
             try
             {
-                await _userMedicineService.DeleteUserMedicine(userMedecineId, cancellationToken);
+                await _userMedicineService.DeleteUserMedicine(userMedicineId, cancellationToken);
                 return Ok();
             }
             catch (NotFoundException e)

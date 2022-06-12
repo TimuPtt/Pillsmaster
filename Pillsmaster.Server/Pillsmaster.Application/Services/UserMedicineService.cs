@@ -59,7 +59,7 @@ namespace Pillsmaster.Application.Services
             CancellationToken cancellationToken)
         {
             var dbUserMedicine = await _dbContext.UserMedicines
-                .FindAsync(userMedicineId, cancellationToken);
+                .FirstOrDefaultAsync(userMedicine => userMedicine.Id == userMedicineId, cancellationToken);
 
             if (dbUserMedicine is null)
                 throw new NotFoundException(typeof(UserMedicine), userMedicineId);

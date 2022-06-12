@@ -2,6 +2,6 @@
 {
     public class TakeViewModel
     {
-        public DateTime TakeDateTime { get; set; }
+        public DateTime TakeTime { get; set; }
     }
 }

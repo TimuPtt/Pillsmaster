@@ -26,10 +26,12 @@ namespace Pillsmaster.Application.Services
                 MedicationDay = new MedicationDay()
                 {
                     Id = Guid.NewGuid(),
-                    CountPerTake = planVm.MedicationDayVm.CountPerTake,
-                    TakesPerDay = planVm.MedicationDayVm.TakesPerDay
+                    CountPerTake = planVm.MedicationDay.CountPerTake,
+                    TakesPerDay = planVm.MedicationDay.TakesPerDay
                 },
-                LastTakeTime = planVm.LastTakeTime,
+                StartDate = planVm.StartDate,
+                NextTakeTime = planVm.NextTakeTime,
+                TakesCount = CalculateTakes(planVm.Duration, planVm.MedicationDay.TakesPerDay)
             };
 
             plan.Takes = new List<Take>();
@@ -41,7 +43,7 @@ namespace Pillsmaster.Application.Services
                     {
                         Id = Guid.NewGuid(),
                         PlanId = plan.Id,
-                        TakeDateTime = takeVm.TakeDateTime
+                        TakeTime = takeVm.TakeTime
                     });
             }
 
@@ -74,9 +76,12 @@ namespace Pillsmaster.Application.Services
             dbPlan.FoodStatus = planVm.FoodStatus;
             dbPlan.PlanStatus = planVm.PlanStatus;
             dbPlan.IsFoodDependent = planVm.IsFoodDependent;
-            dbPlan.MedicationDay.CountPerTake = planVm.MedicationDayVm.CountPerTake;
-            dbPlan.MedicationDay.TakesPerDay = planVm.MedicationDayVm.TakesPerDay;
-            dbPlan.LastTakeTime = planVm.LastTakeTime;
+            dbPlan.MedicationDay.CountPerTake = planVm.MedicationDay.CountPerTake;
+            dbPlan.MedicationDay.TakesPerDay = planVm.MedicationDay.TakesPerDay;
+            dbPlan.StartDate = planVm.StartDate;
+            dbPlan.TakesCount = planVm.TakesCount;
+            dbPlan.NextTakeTime = planVm.NextTakeTime;
+            
 
             await _dbContext.SaveChangesAsync(cancellationToken)
                 .ConfigureAwait(false);
@@ -92,6 +97,11 @@ namespace Pillsmaster.Application.Services
 
             await _dbContext.SaveChangesAsync(cancellationToken)
                 .ConfigureAwait(false);
+        }
+
+        private int CalculateTakes(int duration, int takesPerDay)
+        {
+            return takesPerDay * duration;
         }
     }
 }

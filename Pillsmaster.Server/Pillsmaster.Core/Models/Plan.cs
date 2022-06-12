@@ -20,11 +20,15 @@ namespace Pillsmaster.Domain.Models
 
         public string? PlanStatus { get; set; }
 
+        public int TakesCount { get; set; }
+
         public Guid MedicationDayId { get; set; }
 
         public MedicationDay MedicationDay { get; set; }
 
-        public DateTime? LastTakeTime { get; set; }
+        public DateTime StartDate { get; set; }
+
+        public DateTime? NextTakeTime { get; set; }
 
         public List<Take>? Takes { get; set; } 
     }

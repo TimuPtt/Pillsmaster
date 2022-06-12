@@ -16,9 +16,13 @@ namespace Pillsmaster.Application.ViewModels
 
         public string? PlanStatus { get; set; }
 
-        public MedicationDayViewModel MedicationDayVm { get; set; }
+        public int TakesCount { get; set; }
 
-        public DateTime? LastTakeTime { get; set; }
+        public MedicationDayViewModel MedicationDay { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime? NextTakeTime { get; set; }
 
         public List<TakeViewModel> Takes { get; set; }
     }
