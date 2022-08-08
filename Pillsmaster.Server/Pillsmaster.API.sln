@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32505.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pillsmaster.API", "Pillsmaster.Server\Pillsmaster.API.csproj", "{B0ADC57A-03AD-4BC9-A9F0-1BF5A71E24DB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pillsmaster.Domain", "Pillsmaster.Core\Pillsmaster.Domain.csproj", "{9A045375-D62B-4BB1-81FA-83651BE11845}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{89359A7C-19A3-4634-85EF-6B990CC01280}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ifrastructure", "Ifrastructure", "{5EA77CF9-8426-414C-BDB8-2635EF8AEB44}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{E0E1062B-5F51-4220-A292-EDFBBA7BD5AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pillsmaster.Application", "Pillsmaster.Application\Pillsmaster.Application.csproj", "{645FFF17-6443-4328-AEB7-F73F5BD05C10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pillsmaster.Persistence", "Pillsmaster.Persistance\Pillsmaster.Persistence.csproj", "{BC9B6A44-C5AB-45C5-BC9F-FB45DBFE756F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0ADC57A-03AD-4BC9-A9F0-1BF5A71E24DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0ADC57A-03AD-4BC9-A9F0-1BF5A71E24DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0ADC57A-03AD-4BC9-A9F0-1BF5A71E24DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0ADC57A-03AD-4BC9-A9F0-1BF5A71E24DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A045375-D62B-4BB1-81FA-83651BE11845}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A045375-D62B-4BB1-81FA-83651BE11845}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A045375-D62B-4BB1-81FA-83651BE11845}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A045375-D62B-4BB1-81FA-83651BE11845}.Release|Any CPU.Build.0 = Release|Any CPU
+		{645FFF17-6443-4328-AEB7-F73F5BD05C10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{645FFF17-6443-4328-AEB7-F73F5BD05C10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{645FFF17-6443-4328-AEB7-F73F5BD05C10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{645FFF17-6443-4328-AEB7-F73F5BD05C10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC9B6A44-C5AB-45C5-BC9F-FB45DBFE756F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC9B6A44-C5AB-45C5-BC9F-FB45DBFE756F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC9B6A44-C5AB-45C5-BC9F-FB45DBFE756F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC9B6A44-C5AB-45C5-BC9F-FB45DBFE756F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B0ADC57A-03AD-4BC9-A9F0-1BF5A71E24DB} = {E0E1062B-5F51-4220-A292-EDFBBA7BD5AC}
+		{9A045375-D62B-4BB1-81FA-83651BE11845} = {89359A7C-19A3-4634-85EF-6B990CC01280}
+		{645FFF17-6443-4328-AEB7-F73F5BD05C10} = {89359A7C-19A3-4634-85EF-6B990CC01280}
+		{BC9B6A44-C5AB-45C5-BC9F-FB45DBFE756F} = {5EA77CF9-8426-414C-BDB8-2635EF8AEB44}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D12312A8-7835-4E8A-8CDB-E70EAFFCF5E5}
+	EndGlobalSection
+EndGlobal

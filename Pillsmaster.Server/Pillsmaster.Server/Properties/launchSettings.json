@@ -4,17 +4,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:43291",
+      "applicationUrl": "http://192.168.1.70:43291",
       "sslPort": 44364
     }
   },
   "profiles": {
-    "Pillsmaster.Server": {
+    "Pillsmaster.API": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7196;http://localhost:5196",
+      "applicationUrl": "https://192.168.1.70:7196;http://192.168.1.70:5196",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

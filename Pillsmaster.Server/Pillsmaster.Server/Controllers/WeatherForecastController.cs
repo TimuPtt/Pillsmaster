@@ -1,6 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Pillsmaster.Server.Controllers
+namespace Pillsmaster.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
