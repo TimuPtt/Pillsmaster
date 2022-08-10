@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PillsmasterClient.Views.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:PillsmasterClient.Models.UserMedicineModels;assembly=PillsmasterClient"
+    xmlns:viewModels="clr-namespace:PillsmasterClient.ViewModels;assembly=PillsmasterClient"
+    Title="Лекарства"
+    x:DataType="viewModels:MainPageViewModel">
+    <ContentPage.BindingContext>
+        <viewModels:MainPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ListView
+        Margin="0,0,0,0"
+        HasUnevenRows="True"
+        IsPullToRefreshEnabled="True"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        ItemTapped="OnItemTapped"
+        ItemsSource="{Binding UserMedicines}"
+        RefreshCommand="{Binding RefreshCommand}"
+        SelectionMode="None"
+        SeparatorVisibility="None">
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="model:UserMedicine">
+                <ViewCell>
+                    <ViewCell.ContextActions>
+                        <MenuItem IsDestructive="True" Text="Delete" />
+                    </ViewCell.ContextActions>
+                    <Grid Padding="10,5,10,5" BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource BackgroundDark}}">
+                        <Frame Padding="10" CornerRadius="20">
+                            <StackLayout VerticalOptions="Center">
+                                <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                    <Image
+                                        HeightRequest="80"
+                                        HorizontalOptions="Center"
+                                        Source="{Binding Medicine.Image}"
+                                        VerticalOptions="Center"
+                                        WidthRequest="80">
+                                        <Image.Clip>
+                                            <EllipseGeometry
+                                                Center="40,40"
+                                                RadiusX="40"
+                                                RadiusY="40" />
+                                        </Image.Clip>
+                                    </Image>
+
+                                    <StackLayout Margin="10,0,0,0" VerticalOptions="Center">
+                                        <StackLayout
+                                            Orientation="Horizontal"
+                                            VerticalOptions="Center"
+                                            WidthRequest="270">
+                                            <Label
+                                                FontSize="Large"
+                                                Text="{Binding Medicine.TradeName}"
+                                                VerticalOptions="Center" />
+                                            <Frame
+                                                Padding="8,6,8,6"
+                                                BackgroundColor="{AppThemeBinding Light={StaticResource AccentLight},
+                                                                                  Dark={StaticResource AccentDark}}"
+                                                CornerRadius="14"
+                                                HorizontalOptions="EndAndExpand"
+                                                VerticalOptions="Center">
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label
+                                                        FontSize="Small"
+                                                        Text="{Binding Medicine.ActiveIngredientCount}"
+                                                        VerticalOptions="Center" />
+                                                    <Label FontSize="Small" Text="мг" />
+                                                </StackLayout>
+                                            </Frame>
+
+                                        </StackLayout>
+
+                                        <Label
+                                            FontSize="Micro"
+                                            Text="{Binding Medicine.InternationalName, Mode=OneWay}"
+                                            TextColor="{AppThemeBinding Light={StaticResource GrayDark},
+                                                                        Dark={StaticResource GrayDark}}"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            FontSize="Small"
+                                            Text="{Binding Medicine.PharmaType, Mode=OneWay}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        <ListView.Footer>
+            <StackLayout Padding="20" Orientation="Vertical">
+                <Button Command="{Binding AddCommand}" Text="Добавить" />
+            </StackLayout>
+        </ListView.Footer>
+    </ListView>
+
+</ContentPage>

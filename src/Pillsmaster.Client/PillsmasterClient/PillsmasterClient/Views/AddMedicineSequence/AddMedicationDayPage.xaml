@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PillsmasterClient.Views.AddMedicineSequence.AddMedicationDayPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:takeModels="clr-namespace:PillsmasterClient.Models.TakeModels;assembly=PillsmasterClient"
+    xmlns:viewModels="clr-namespace:PillsmasterClient.ViewModels.AddMedicineSequenceViewModels;assembly=PillsmasterClient"
+    Shell.TabBarIsVisible="False">
+    <ContentPage.BindingContext>
+        <viewModels:AddMedicationDayViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Padding="20">
+                <StackLayout Margin="0,0,0,0" VerticalOptions="CenterAndExpand">
+                    <Label Text="Приемов в день:" />
+                    <Entry
+                        Margin="0,0,0,10"
+                        Keyboard="Numeric"
+                        Placeholder="2"
+                        Text="{Binding TakesPerDay}" />
+                    <Label Text="Ед. на прием:" />
+                    <Entry
+                        Margin="0,0,0,10"
+                        Keyboard="Numeric"
+                        Placeholder="1"
+                        Text="{Binding CountPerTake}" />
+                    <Label Text="Время приемов:" />
+                    <ListView
+                        HeightRequest="180"
+                        ItemsSource="{Binding TakeTimes}"
+                        SeparatorVisibility="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="viewModels:TakeViewModel">
+                                <ViewCell>
+                                    <TimePicker
+                                        Margin="5"
+                                        Format="HH:mm"
+                                        Time="{Binding TakeTime}" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button Command="{Binding GoNextAsyncCommand}" Text="Далее" />
+                </StackLayout>
+
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

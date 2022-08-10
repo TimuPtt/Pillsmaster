@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PillsmasterClient.Views.ProfilePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:PillsmasterClient.ViewModels;assembly=PillsmasterClient"
+    Title="Профиль">
+    <ContentPage.BindingContext>
+        <viewModels:ProfilePageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Изменить" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource BackgroundDark}}" Orientation="Vertical">
+            <Image
+                Margin="0,20,0,0"
+                HeightRequest="160"
+                HorizontalOptions="Center"
+                Source="sticker.png"
+                VerticalOptions="Center"
+                WidthRequest="160">
+                <Image.Clip>
+                    <EllipseGeometry
+                        Center="80,80"
+                        RadiusX="80"
+                        RadiusY="80" />
+                </Image.Clip>
+            </Image>
+            <TableView BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource BackgroundDark}}">
+                <TableRoot Title="Профиль">
+
+                    <TableSection Title="Личные данные">
+                        <EntryCell
+                            HorizontalTextAlignment="End"
+                            IsEnabled="False"
+                            Label="Имя"
+                            Text="Test" />
+                        <EntryCell
+                            HorizontalTextAlignment="End"
+                            IsEnabled="False"
+                            Label="Фамилия"
+                            Text="Test" />
+                        <EntryCell
+                            HorizontalTextAlignment="End"
+                            IsEnabled="False"
+                            Label="E-mail"
+                            Text="Test@test.ru" />
+
+                    </TableSection>
+                    <TableSection>
+                        <ViewCell>
+                            <Label
+                                Margin="10"
+                                HorizontalOptions="Center"
+                                Text="Выйти"
+                                TextColor="DarkRed">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding LogOutAsyncCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                        </ViewCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

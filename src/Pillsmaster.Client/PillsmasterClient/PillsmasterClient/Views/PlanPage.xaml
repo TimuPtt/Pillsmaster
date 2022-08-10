@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PillsmasterClient.Views.PlanPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:takeModels="clr-namespace:PillsmasterClient.Models.TakeModels;assembly=PillsmasterClient"
+    xmlns:viewModels="clr-namespace:PillsmasterClient.ViewModels;assembly=PillsmasterClient"
+    Title="{Binding Title}"
+    x:DataType="viewModels:PlanPageViewModel"
+    Shell.TabBarIsVisible="False">
+    <ContentPage.BindingContext>
+        <viewModels:PlanPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding NotifyCommand}" Text="Изменить" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Padding="10" BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource GrayLight}}">
+            <Frame
+                Padding="20"
+                BackgroundColor="{AppThemeBinding Dark={StaticResource FieldBackgroundDark},
+                                                  Light=White}"
+                CornerRadius="20">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Image
+                            HeightRequest="80"
+                            Source="{Binding UserMedicine.Medicine.Image}"
+                            WidthRequest="80">
+                            <Image.Clip>
+                                <EllipseGeometry
+                                    Center="40,40"
+                                    RadiusX="40"
+                                    RadiusY="40" />
+                            </Image.Clip>
+                        </Image>
+                        <Grid
+                            Margin="10,0,0,0"
+                            RowSpacing="3"
+                            VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="0.6" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="130" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                FontSize="25"
+                                Text="{Binding UserMedicine.Medicine.TradeName}"
+                                VerticalOptions="Center" />
+                            <BoxView
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                BackgroundColor="Gray"
+                                HeightRequest="1"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="End" />
+                            <Label
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                FontSize="Micro"
+                                Text="Принять" />
+                            <Label
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                FontSize="Micro"
+                                Text="{Binding Plan.NextTakeTime}" />
+
+                        </Grid>
+                        <StackLayout Orientation="Vertical" />
+
+                    </StackLayout>
+                    <Button
+                        Margin="0,10,0,0"
+                        Command="{Binding TakePillCommand}"
+                        Text="Принять" />
+                </StackLayout>
+            </Frame>
+            <RefreshView
+                Margin="-10"
+                Padding="10"
+                BackgroundColor="Transparent"
+                Command="{Binding RefreshCommand}"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+
+                <Frame
+                    Margin="0,0,0,-50"
+                    Padding="0,20,0,20"
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource FieldBackgroundDark},
+                                                      Light=White}"
+                    CornerRadius="20">
+                    <TableView
+                        Margin="0"
+                        BackgroundColor="{AppThemeBinding Light=White,
+                                                          Dark={StaticResource FieldBackgroundDark}}"
+                        HasUnevenRows="True">
+                        <TableRoot Title="Лекарственное средство" TextColor="Black">
+                            <TableSection Title="Информация о лекарстве">
+                                <EntryCell
+                                    HorizontalTextAlignment="End"
+                                    Label="Торговое название"
+                                    Text="{Binding UserMedicine.Medicine.TradeName}" />
+                                <EntryCell
+                                    HorizontalTextAlignment="End"
+                                    Label="Научное название"
+                                    Text="{Binding UserMedicine.Medicine.InternationalName}" />
+                                <EntryCell
+                                    HorizontalTextAlignment="End"
+                                    Label="Тип"
+                                    Text="{Binding UserMedicine.Medicine.PharmaType}" />
+                                <EntryCell
+                                    HorizontalTextAlignment="End"
+                                    Keyboard="Numeric"
+                                    Label="Дозировка, мг"
+                                    Text="{Binding UserMedicine.Medicine.ActiveIngredientCount}" />
+                            </TableSection>
+
+                            <TableSection Title="Количество лекарства">
+                                <EntryCell
+                                    HorizontalTextAlignment="End"
+                                    IsEnabled="False"
+                                    Keyboard="Numeric"
+                                    Label="Единиц в наличии"
+                                    Text="{Binding Plan.MedicineCount}" />
+                            </TableSection>
+
+                            <TableSection Title="План приема">
+                                <EntryCell
+                                    HorizontalTextAlignment="End"
+                                    IsEnabled="False"
+                                    Keyboard="Numeric"
+                                    Label="Дата начала приема"
+                                    Text="{Binding Plan.StartDate.Date, StringFormat='{}{0:dd.MM.yyyy}'}" />
+                                <EntryCell
+                                    HorizontalTextAlignment="End"
+                                    IsEnabled="False"
+                                    Keyboard="Numeric"
+                                    Label="Количество дней"
+                                    Text="{Binding Plan.Duration}" />
+                                <EntryCell
+                                    HorizontalTextAlignment="End"
+                                    IsEnabled="False"
+                                    Keyboard="Numeric"
+                                    Label="Приемов в день"
+                                    Text="{Binding Plan.MedicationDay.TakesPerDay}" />
+                                <SwitchCell
+                                    On="True"
+                                    OnColor="{StaticResource PrimaryLight}"
+                                    Text="Уведомления" />
+                            </TableSection>
+                            <TableSection Title="Приемы">
+                                <ViewCell>
+                                    <StackLayout Padding="20" Orientation="Horizontal">
+                                        <Label HorizontalOptions="Start" Text="Время приемов" />
+                                        <StackLayout
+                                            Padding="0"
+                                            HorizontalOptions="EndAndExpand"
+                                            WidthRequest="190">
+                                            <ListView
+                                                HeightRequest="150"
+                                                ItemsSource="{Binding Plan.Takes}"
+                                                SeparatorVisibility="None">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate x:DataType="takeModels:Take">
+                                                        <ViewCell>
+                                                            <ViewCell.ContextActions>
+                                                                <MenuItem Text="Изменить" />
+                                                            </ViewCell.ContextActions>
+                                                            <Frame
+                                                                Margin="0,5,0,5"
+                                                                Padding="5"
+                                                                BorderColor="{StaticResource Primary}"
+                                                                HasShadow="False"
+                                                                HorizontalOptions="EndAndExpand"
+                                                                WidthRequest="100">
+                                                                <Label
+                                                                    HorizontalOptions="Center"
+                                                                    Text="{Binding TakeTime.TimeOfDay, StringFormat='{}{0:hh\\:mm}'}"
+                                                                    VerticalOptions="Center" />
+                                                            </Frame>
+                                                        </ViewCell>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell>
+                                <EntryCell IsEnabled="False" />
+                            </TableSection>
+                        </TableRoot>
+                    </TableView>
+                </Frame>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
