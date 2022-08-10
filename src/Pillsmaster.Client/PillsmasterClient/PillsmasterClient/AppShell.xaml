@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="PillsmasterClient.AppShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PillsmasterClient.Views"
+    Title="PillsmasterClient">
+
+    <!--
+        The overall app visual hierarchy is defined here, along with navigation.
+        
+        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
+    -->
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light=White}" />
+                <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Dark={StaticResource PrimaryLight}, Light={StaticResource Primary}}" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource Background}}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Dark={StaticResource GrayDark}, Light={StaticResource Primary}}" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource GrayDark}" />
+                <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Dark={StaticResource PrimaryLight}, Light={StaticResource Primary}}" />
+            </Style>
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="TabBar" />
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="FlyoutItem" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <ShellItem Route="LoginPage">
+        <ShellContent ContentTemplate="{DataTemplate local:LoginPage}" />
+    </ShellItem>
+
+    <TabBar>
+        <ShellContent
+            Title="Настройки"
+            ContentTemplate="{DataTemplate local:StatiscticsPage}"
+            Icon="icon_settings.png" />
+        <ShellContent
+            Title="Лекарства"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Icon="icon_main.png"
+            Route="MainPage" />
+        <ShellContent
+            Title="Профиль"
+            ContentTemplate="{DataTemplate local:ProfilePage}"
+            Icon="icon_profile.png" />
+    </TabBar>
+    <TabBar />
+
+
+
+
+</Shell>

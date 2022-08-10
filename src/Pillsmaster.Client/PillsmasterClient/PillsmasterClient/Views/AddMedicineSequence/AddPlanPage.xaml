@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PillsmasterClient.Views.AddMedicineSequence.AddPlanPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:PillsmasterClient.ViewModels.AddMedicineSequenceViewModels;assembly=PillsmasterClient"
+    Shell.TabBarIsVisible="False">
+    <ContentPage.BindingContext>
+        <viewModels:AddPlanViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label Text="Количество ед. в наличии" />
+            <Entry
+                Keyboard="Numeric"
+                Placeholder="20"
+                Text="{Binding MedicineCount}" />
+            <Label Text="Продолжительность, дней:" />
+            <Entry
+                Keyboard="Numeric"
+                Placeholder="5"
+                Text="{Binding Duration}" />
+            <Label Text="Зависимость о приема пищи" />
+            <Entry Placeholder="не зависит" Text="{Binding FoodStatus}" />
+            <Button
+                Margin="0,20,0,0"
+                Command="{Binding DoneAsyncCommand}"
+                Text="Готово" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

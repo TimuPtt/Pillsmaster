@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PillsmasterClient.Views.AddMedicineSequence.AddMedicinePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:PillsmasterClient.ViewModels.AddMedicineSequenceViewModels;assembly=PillsmasterClient"
+    Title="Лекарство"
+    Shell.TabBarIsVisible="False">
+    <ContentPage.BindingContext>
+        <viewModels:AddMedicineViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <StackLayout Margin="0,-180,0,0" VerticalOptions="CenterAndExpand">
+                <Label Text="Название лекарства:" />
+                <Entry
+                    Margin="0,0,0,10"
+                    Placeholder="Название лекарства"
+                    Text="{Binding TradeName}" />
+                <Label Text="Научное название лекарства:" />
+                <Entry
+                    Margin="0,0,0,10"
+                    Placeholder="Научное название лекарства"
+                    Text="{Binding InternationalName}" />
+                <Label Text="Тип лекарства" />
+                <Picker Title="Тип лекарства" SelectedItem="{Binding PharmaType}">
+                    <Picker.Items>
+                        <x:String>Таблетки</x:String>
+                        <x:String>Капсулы</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label Text="Дозировка активного вещества, мг:" />
+                <Entry
+                    Margin="0,0,0,20"
+                    Keyboard="Numeric"
+                    Placeholder="20"
+                    Text="{Binding ActiveIngredientCount}" />
+                <Button Command="{Binding GoNextAsyncCommand}" Text="Далее" />
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
