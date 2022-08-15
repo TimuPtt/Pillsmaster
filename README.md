@@ -16,7 +16,7 @@
 </img>
 <br/>
 <br/>
-<img src=".github/Screenshot.png" width="824" alt="Screenshot"/>
+<img src=".github/Screenshot.PNG" width=800 alt="Screenshot"/>
 </div>
 <br/>
 <hr>
