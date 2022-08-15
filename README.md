@@ -26,3 +26,6 @@
 - Recieve notifications on any device
 - Track medicine amount
 - Save your medicine info to reuse it later
+
+## Links
+- <a href="./README_RU-ru.md">Readme (RU)</a>
