@@ -14,6 +14,9 @@ namespace Pillsmaster.Persistence
         public DbSet<Take> Takes { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserDetails> UserDetails { get; set; }
+        public DbSet<FoodStatus> FoodStatuses { get; set; }
+        public DbSet<PharmaType> PharmaTypes { get; set; }
+        public DbSet<PlanStatus> PlanStatuses { get; set; }
 
         public PillsmasterDbContext(DbContextOptions<PillsmasterDbContext> options) : base(options) { }
     }
