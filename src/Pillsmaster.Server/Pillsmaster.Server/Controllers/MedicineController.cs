@@ -1,26 +1,25 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using MediatR;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+using Pillsmaster.API.Dtos;
+using Pillsmaster.Application.Commands.Medicines.CreateMedicine;
 using Pillsmaster.Application.Common.Exceptions;
 using Pillsmaster.Application.Interfaces;
+using Pillsmaster.Application.Medicines.Queries.GetMedicine;
 using Pillsmaster.Application.ViewModels;
 using Pillsmaster.Domain.Models;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Pillsmaster.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class MedicineController : ControllerBase
+    public class MedicineController : BaseController
     {
-        private readonly IMedicineService _medicineService;
-
-        public MedicineController(IMedicineService medicineService, IPillsmasterDbContext dbContext)
-        {
-            _medicineService = medicineService;
-        }
+        public MedicineController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
 
         // GET api/<MedicineController>/5
         [HttpGet("{id}")]
@@ -29,7 +28,7 @@ namespace Pillsmaster.API.Controllers
         {
             try
             {
-                var medicine = await _medicineService.ReadMedicineById(id, cancellationToken);
+                var medicine = new Medicine();
                 return Ok(medicine);
             }
             catch (NotFoundException e)
@@ -45,27 +44,25 @@ namespace Pillsmaster.API.Controllers
         /// <param name="cancellationToken">token</param>
         /// <returns>Medicine</returns>
         [HttpGet("GetByTradename/{tradeName}")]
-        public async Task<ActionResult<IEnumerable<Medicine>>> GetByTradeName(string tradeName, 
+        public async Task<ActionResult<IEnumerable<Medicine>>> GetByTradeName(string tradeName,
             CancellationToken cancellationToken)
         {
-            try
+            var query = new GetMedicineQuery()
             {
-                var medicine = await _medicineService.ReadMedicinesByName(tradeName, cancellationToken);
-                return Ok(medicine);
-            }
-            catch (NotFoundException e)
-            {
-                return NotFound($"Medicine not found (Exception: {e.Message})");
-            }
+                TradeName = tradeName
+            };
+            var medicine = await _mediator.Send(query, cancellationToken);
+            return Ok(medicine);
         }
 
         // POST api/<MedicineController>
         [HttpPost]
-        public async Task<ActionResult<Guid>> Post([FromBody] MedicineViewModel medicineVm,
+        public async Task<ActionResult<Medicine>> Post([FromBody] CreateMedicineDto createMedicineDto,
             CancellationToken cancellationToken)
         {
-            var medicineId = await _medicineService.CreateMedicine(medicineVm, cancellationToken);
-            return Ok(medicineId);
+            var command = _mapper.Map<CreateMedicineCommand>(createMedicineDto);
+            var medicine = await _mediator.Send(command, cancellationToken);
+            return Ok(medicine);
         }
 
         // PUT api/<MedicineController>/5
@@ -75,8 +72,8 @@ namespace Pillsmaster.API.Controllers
         {
             try
             {
-                await _medicineService.UpdateMedicine(id, medicineVm, cancellationToken);
-                return Ok();
+                // await _medicineService.UpdateMedicine(id, medicineVm, cancellationToken);
+                 return Ok();
             }
             catch (NotFoundException e)
             {
@@ -90,7 +87,7 @@ namespace Pillsmaster.API.Controllers
         {
             try
             {
-                await _medicineService.DeleteMedicine(id, cancellationToken);
+                // await _medicineService.DeleteMedicine(id, cancellationToken);
                 return Ok();
             }
             catch (NotFoundException e)
