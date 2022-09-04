@@ -1,11 +1,14 @@
+using System.Reflection;
 using System.Text;
 using HealthChecks.UI.Client;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
+using Pillsmaster.Application;
+using Pillsmaster.Application.Common.Mappings;
 using Pillsmaster.Persistence;
 using Pillsmaster.Application.Services;
 using Pillsmaster.Application.Interfaces;
@@ -57,9 +60,15 @@ builder.Services.AddDbContext<IPillsmasterDbContext, PillsmasterDbContext>(optio
 });
 
 builder.Services.AddTransient<IAuthorizationService, AuthorizationService>();
-builder.Services.AddTransient<IMedicineService, MedicineService>();
-builder.Services.AddTransient<IUserMedicineService, UserMedicineService>();
-builder.Services.AddTransient<IPlanService, PlanService>();
+
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddApplication();
+
+builder.Services.AddAutoMapper(config =>
+{
+    config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
+    config.AddProfile(new AssemblyMappingProfile(typeof(IPillsmasterDbContext).Assembly));
+});
 
 var app = builder.Build();
 
