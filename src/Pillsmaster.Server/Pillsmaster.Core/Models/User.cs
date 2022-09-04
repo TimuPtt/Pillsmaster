@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Pillsmaster.Domain.Models
 {
     public class User
@@ -12,7 +7,8 @@ namespace Pillsmaster.Domain.Models
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-        public Guid userDetailsId { get; set; }
+        
+        public Guid UserDetailsId { get; set; }
         public UserDetails UserDetails { get; set; }
     }
 }
