@@ -6,19 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2dd332c1-0408-4267-b1f4-e72194472149" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/Common/Behaviors/ValidatorBehavior.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/Medicines/Commands/CreateMedicine/CreateMedicineCommandValidator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/Plans/Commands/CreatePlan/CreatePlanCommandValidator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/Plans/Commands/DeletePlan/DeletePlanCommandValidator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/Plans/Commands/UpdatePlan/UpdatePlanCommandValidator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/UserMedicines/Commands/CreateUserMedicine/CreateUserMedicineValidator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/UserMedicines/Commands/DeleteUserMedicine/DeleteUserMedicineValidator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/UserMedicines/Commands/UpdateUserMedicine/UpdateUserMedicineValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Server/Middleware/CustomExceptionHandlerMiddleware.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pillsmaster.API/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pillsmaster.API/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/DependencyInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/Pillsmaster.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/Pillsmaster.Application.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pillsmaster.Server/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Server/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Server/Pillsmaster.API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Server/Pillsmaster.API.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +88,7 @@
       <workItem from="1662231326824" duration="121000" />
       <workItem from="1662283612465" duration="17267000" />
       <workItem from="1662381415210" duration="3828000" />
+      <workItem from="1662402089984" duration="1870000" />
     </task>
     <servers />
   </component>
@@ -111,7 +102,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/6-rewrite-domen-and-services-layers" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
