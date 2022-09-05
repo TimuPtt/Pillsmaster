@@ -62,6 +62,7 @@ builder.Services.AddDbContext<IPillsmasterDbContext, PillsmasterDbContext>(optio
 builder.Services.AddTransient<IAuthorizationService, AuthorizationService>();
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
 builder.Services.AddApplication();
 
 builder.Services.AddAutoMapper(config =>
