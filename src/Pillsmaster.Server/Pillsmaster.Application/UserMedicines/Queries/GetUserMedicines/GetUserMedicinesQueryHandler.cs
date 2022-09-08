@@ -11,11 +11,11 @@ using Pillsmaster.Domain.Models;
 namespace Pillsmaster.Application.UserMedicines.Queries.GetUserMedicines;
 
 public class GetUserMedicinesQueryHandler : BaseQueryHandler,
-    IRequestHandler<GetUserMedicineQuery, IEnumerable<UserMedicineViewModel>>
+    IRequestHandler<GetUserMedicinesQuery, IEnumerable<UserMedicineViewModel>>
 {
     public GetUserMedicinesQueryHandler(IPillsmasterDbContext dbContext, IMapper mapper) : base(dbContext, mapper) { }
 
-    public async Task<IEnumerable<UserMedicineViewModel>> Handle(GetUserMedicineQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<UserMedicineViewModel>> Handle(GetUserMedicinesQuery request, CancellationToken cancellationToken)
     {
         var entities = await _dbContext.UserMedicines
             .Where(userMedicine => userMedicine.UserId == request.UserId)

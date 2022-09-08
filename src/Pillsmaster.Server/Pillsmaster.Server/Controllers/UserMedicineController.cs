@@ -26,7 +26,7 @@ namespace Pillsmaster.API.Controllers
         public async Task<ActionResult<List<UserMedicineViewModel>>> GetUserMedicines(
             CancellationToken cancellationToken)
         {
-            var query = new GetUserMedicineQuery()
+            var query = new GetUserMedicinesQuery()
             {
                 UserId = UserId
             };
