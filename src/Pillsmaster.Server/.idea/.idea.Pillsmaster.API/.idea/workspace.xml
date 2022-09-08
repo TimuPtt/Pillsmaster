@@ -6,14 +6,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2dd332c1-0408-4267-b1f4-e72194472149" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Server/Middleware/CustomExceptionHandlerMiddleware.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/Common/Behaviors/LoggingBehavior.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/Interfaces/ICurrentUserService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Server/Services/CurrentUserService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Common/PillsmasterContextFactory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Common/QueryTestFixture.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Common/TestCommandBase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Plans/Commands/CreatePlanCommandHandlerTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Plans/Commands/DeletePlanCommandHandlerTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Plans/Commands/UpdatePlanCommandHandlerTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Plans/Queries/GetPlanQueryHandlerTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/UserMedicines/Commands/CreateUserMedicineCommandHandlerTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/UserMedicines/Commands/DeleteUserMedicineCommandHandlerTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/UserMedicines/Commands/UpdateUserMedicineCommandHandlerTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/UserMedicines/Queries/GetUserMedicinesQueryHandlerTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pillsmaster.API/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pillsmaster.API/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.API.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.API.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/DependencyInjection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/Pillsmaster.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/Pillsmaster.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/UserMedicines/Queries/GetUserMedicines/GetUserMedicineQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/UserMedicines/Queries/GetUserMedicines/GetUserMedicinesQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/UserMedicines/Queries/GetUserMedicines/GetUserMedicinesQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/UserMedicines/Queries/GetUserMedicines/GetUserMedicinesQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Server/Controllers/UserMedicineController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Server/Controllers/UserMedicineController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Server/Middleware/CustomExceptionHandlerMiddleware.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Server/Middleware/CustomExceptionHandlerMiddleware.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pillsmaster.Server/Pillsmaster.API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Server/Pillsmaster.API.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Server/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Server/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2888a7b3f5214a942e2464cca089727fd29979f5222297f3efc750e389b2/MemberExpression.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -88,7 +112,10 @@
       <workItem from="1662231326824" duration="121000" />
       <workItem from="1662283612465" duration="17267000" />
       <workItem from="1662381415210" duration="3828000" />
-      <workItem from="1662402089984" duration="1870000" />
+      <workItem from="1662402089984" duration="2140000" />
+      <workItem from="1662486056470" duration="6475000" />
+      <workItem from="1662548359547" duration="14709000" />
+      <workItem from="1662635846321" duration="13063000" />
     </task>
     <servers />
   </component>
