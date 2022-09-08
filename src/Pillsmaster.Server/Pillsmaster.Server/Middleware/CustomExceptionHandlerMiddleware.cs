@@ -25,26 +25,16 @@ public class CustomExceptionHandlerMiddleware
 
     private Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        var code = HttpStatusCode.InternalServerError;
-        var result = string.Empty;
-        switch (exception)
-        {
-            case ValidationException validationException:
-                code = HttpStatusCode.BadRequest;
-                result = JsonSerializer.Serialize(validationException.Message);
-                break;
-            case NotFoundException:
-                code = HttpStatusCode.NotFound;
-                break;
-        }
         context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)code;
-
-        if (result == string.Empty)
+        context.Response.StatusCode = exception switch
         {
-            result = JsonSerializer.Serialize(new { error = exception.Message });
-        }
+            ValidationException => (int)HttpStatusCode.BadRequest,
+            NotFoundException => (int)HttpStatusCode.NotFound,
+            _ => (int)HttpStatusCode.InternalServerError,
+        };
 
-        return context.Response.WriteAsync(result);
+        var responseMessage = JsonSerializer.Serialize(new { Error = exception.Message });
+
+        return context.Response.WriteAsync(responseMessage);
     }
 }
