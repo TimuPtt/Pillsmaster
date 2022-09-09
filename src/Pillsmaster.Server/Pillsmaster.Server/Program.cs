@@ -1,19 +1,33 @@
+using System.Reflection;
 using System.Text;
 using HealthChecks.UI.Client;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
+using Pillsmaster.API.Middleware;
+using Pillsmaster.API.Services;
+using Pillsmaster.Application;
+using Pillsmaster.Application.Common.Mappings;
 using Pillsmaster.Persistence;
 using Pillsmaster.Application.Services;
 using Pillsmaster.Application.Interfaces;
-
+using Serilog;
+using Serilog.Configuration;
+using Serilog.Events;
 using Swashbuckle.AspNetCore.Filters;
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .WriteTo.Console()
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Host.UseSerilog();
 
 // Add services to the container.
 
@@ -57,9 +71,19 @@ builder.Services.AddDbContext<IPillsmasterDbContext, PillsmasterDbContext>(optio
 });
 
 builder.Services.AddTransient<IAuthorizationService, AuthorizationService>();
-builder.Services.AddTransient<IMedicineService, MedicineService>();
-builder.Services.AddTransient<IUserMedicineService, UserMedicineService>();
-builder.Services.AddTransient<IPlanService, PlanService>();
+
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
+builder.Services.AddApplication();
+
+builder.Services.AddAutoMapper(config =>
+{
+    config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
+    config.AddProfile(new AssemblyMappingProfile(typeof(IPillsmasterDbContext).Assembly));
+});
+
+builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -69,7 +93,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCustomExceptionHandler();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

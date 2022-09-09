@@ -22,6 +22,23 @@ namespace Pillsmaster.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Pillsmaster.Domain.Models.FoodStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FoodStatuses");
+                });
+
             modelBuilder.Entity("Pillsmaster.Domain.Models.MedicationDay", b =>
                 {
                     b.Property<Guid>("Id")
@@ -41,7 +58,7 @@ namespace Pillsmaster.Persistence.Migrations
 
             modelBuilder.Entity("Pillsmaster.Domain.Models.Medicine", b =>
                 {
-                    b.Property<Guid>("MedicineId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -53,19 +70,36 @@ namespace Pillsmaster.Persistence.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("PharmaType")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                    b.Property<int>("PharmaTypeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("TradeName")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.HasKey("MedicineId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("PharmaTypeId");
 
                     b.ToTable("Medicines");
+                });
+
+            modelBuilder.Entity("Pillsmaster.Domain.Models.PharmaType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PharmaTypes");
                 });
 
             modelBuilder.Entity("Pillsmaster.Domain.Models.Plan", b =>
@@ -77,8 +111,8 @@ namespace Pillsmaster.Persistence.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
-                    b.Property<string>("FoodStatus")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("FoodStatusId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsEnoughToFinish")
                         .HasColumnType("bit");
@@ -95,8 +129,8 @@ namespace Pillsmaster.Persistence.Migrations
                     b.Property<DateTime?>("NextTakeTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PlanStatus")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PlanStatusId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -107,11 +141,37 @@ namespace Pillsmaster.Persistence.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("UserMedicineId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("FoodStatusId");
 
                     b.HasIndex("MedicationDayId");
 
+                    b.HasIndex("PlanStatusId");
+
+                    b.HasIndex("UserMedicineId");
+
                     b.ToTable("Plans");
+                });
+
+            modelBuilder.Entity("Pillsmaster.Domain.Models.PlanStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PlanStatuses");
                 });
 
             modelBuilder.Entity("Pillsmaster.Domain.Models.Take", b =>
@@ -151,12 +211,12 @@ namespace Pillsmaster.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<Guid>("userDetailsId")
+                    b.Property<Guid>("UserDetailsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("userDetailsId");
+                    b.HasIndex("UserDetailsId");
 
                     b.ToTable("Users");
                 });
@@ -186,31 +246,74 @@ namespace Pillsmaster.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("MedicineId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ActiveIngredientCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("InternationalName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PharmaTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TradeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("UserPlanId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("MedicineId");
+                    b.HasIndex("PharmaTypeId");
 
                     b.ToTable("UserMedicines");
                 });
 
+            modelBuilder.Entity("Pillsmaster.Domain.Models.Medicine", b =>
+                {
+                    b.HasOne("Pillsmaster.Domain.Models.PharmaType", "PharmaType")
+                        .WithMany()
+                        .HasForeignKey("PharmaTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PharmaType");
+                });
+
             modelBuilder.Entity("Pillsmaster.Domain.Models.Plan", b =>
                 {
+                    b.HasOne("Pillsmaster.Domain.Models.FoodStatus", "FoodStatus")
+                        .WithMany()
+                        .HasForeignKey("FoodStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Pillsmaster.Domain.Models.MedicationDay", "MedicationDay")
                         .WithMany()
                         .HasForeignKey("MedicationDayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Pillsmaster.Domain.Models.PlanStatus", "PlanStatus")
+                        .WithMany()
+                        .HasForeignKey("PlanStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Pillsmaster.Domain.Models.UserMedicine", "UserMedicine")
+                        .WithMany()
+                        .HasForeignKey("UserMedicineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FoodStatus");
+
                     b.Navigation("MedicationDay");
+
+                    b.Navigation("PlanStatus");
+
+                    b.Navigation("UserMedicine");
                 });
 
             modelBuilder.Entity("Pillsmaster.Domain.Models.Take", b =>
@@ -226,7 +329,7 @@ namespace Pillsmaster.Persistence.Migrations
                 {
                     b.HasOne("Pillsmaster.Domain.Models.UserDetails", "UserDetails")
                         .WithMany()
-                        .HasForeignKey("userDetailsId")
+                        .HasForeignKey("UserDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -235,18 +338,13 @@ namespace Pillsmaster.Persistence.Migrations
 
             modelBuilder.Entity("Pillsmaster.Domain.Models.UserMedicine", b =>
                 {
-                    b.HasOne("Pillsmaster.Domain.Models.Medicine", "Medicine")
-                        .WithMany("UserMedicines")
-                        .HasForeignKey("MedicineId")
+                    b.HasOne("Pillsmaster.Domain.Models.PharmaType", "PharmaType")
+                        .WithMany()
+                        .HasForeignKey("PharmaTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Medicine");
-                });
-
-            modelBuilder.Entity("Pillsmaster.Domain.Models.Medicine", b =>
-                {
-                    b.Navigation("UserMedicines");
+                    b.Navigation("PharmaType");
                 });
 
             modelBuilder.Entity("Pillsmaster.Domain.Models.Plan", b =>

@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pillsmaster.Application", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pillsmaster.Persistence", "Pillsmaster.Persistance\Pillsmaster.Persistence.csproj", "{BC9B6A44-C5AB-45C5-BC9F-FB45DBFE756F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9AA292B5-AB14-4970-970A-AFCD509D4C32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pillsmaster.Tests", "Pillsmaster.Tests\Pillsmaster.Tests.csproj", "{BC03DD3A-D907-40FE-9CAB-4CCE5638CBF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,10 @@ Global
 		{BC9B6A44-C5AB-45C5-BC9F-FB45DBFE756F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC9B6A44-C5AB-45C5-BC9F-FB45DBFE756F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC9B6A44-C5AB-45C5-BC9F-FB45DBFE756F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC03DD3A-D907-40FE-9CAB-4CCE5638CBF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC03DD3A-D907-40FE-9CAB-4CCE5638CBF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC03DD3A-D907-40FE-9CAB-4CCE5638CBF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC03DD3A-D907-40FE-9CAB-4CCE5638CBF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +56,7 @@ Global
 		{9A045375-D62B-4BB1-81FA-83651BE11845} = {89359A7C-19A3-4634-85EF-6B990CC01280}
 		{645FFF17-6443-4328-AEB7-F73F5BD05C10} = {89359A7C-19A3-4634-85EF-6B990CC01280}
 		{BC9B6A44-C5AB-45C5-BC9F-FB45DBFE756F} = {5EA77CF9-8426-414C-BDB8-2635EF8AEB44}
+		{BC03DD3A-D907-40FE-9CAB-4CCE5638CBF1} = {9AA292B5-AB14-4970-970A-AFCD509D4C32}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D12312A8-7835-4E8A-8CDB-E70EAFFCF5E5}

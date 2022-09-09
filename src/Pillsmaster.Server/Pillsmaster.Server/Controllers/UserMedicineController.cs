@@ -1,8 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using MediatR;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-using Pillsmaster.Application.Common.Exceptions;
-using Pillsmaster.Application.Interfaces;
+using Pillsmaster.API.Dtos;
+using Pillsmaster.Application.UserMedicines.Commands.CreateUserMedicine;
+using Pillsmaster.Application.UserMedicines.Commands.DeleteUserMedicine;
+using Pillsmaster.Application.UserMedicines.Commands.UpdateUserMedicine;
+using Pillsmaster.Application.UserMedicines.Queries.GetUserMedicines;
 using Pillsmaster.Application.ViewModels;
 using Pillsmaster.Domain.Models;
 
@@ -11,79 +17,56 @@ namespace Pillsmaster.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class UserMedicineController : ControllerBase
+    public class UserMedicineController : BaseController
     {
-        private readonly IUserMedicineService _userMedicineService;
-
-        public UserMedicineController(IUserMedicineService userMedicineService)
-        {
-            _userMedicineService = userMedicineService;
-        }
-
+        public UserMedicineController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
+        
         // GET: api/<UserMedicineController>
         [HttpGet]
-        public async Task<ActionResult<List<UserMedicine>>> GetUserMedicines(CancellationToken cancellationToken)
+        public async Task<ActionResult<List<UserMedicineViewModel>>> GetUserMedicines(
+            CancellationToken cancellationToken)
         {
-            try
+            var query = new GetUserMedicinesQuery()
             {
-                var userId = GetUserId();
-                var userMedicines = await _userMedicineService.ReadUserMedicines(userId, cancellationToken);
-                return Ok(userMedicines);
-            }
-            catch (NotFoundException e)
-            {
-                return NotFound($"UserMedicine not found (Exception: {e.Message})");
-            }
+                UserId = UserId
+            };
+            var userMedicines = await _mediator.Send(query, cancellationToken);
+            return Ok(userMedicines);
         }
 
         // POST api/<UserMedicineController>
         [HttpPost]
-        public async Task<ActionResult<UserMedicine>> Post([FromBody] UserMedicineViewModel userMedicineVm,
+        public async Task<ActionResult<UserMedicine>> Post([FromBody] CreateUserMedicineDto createUserMedicineDto,
             CancellationToken cancellationToken)
         {
-            var userId = GetUserId();
-                
-            var userMedicine = await _userMedicineService.CreateUserMedicine(userId, userMedicineVm, cancellationToken);
-
+            var command = _mapper.Map<CreateUserMedicineCommand>(createUserMedicineDto);
+            command.UserId = UserId;
+            var userMedicine = await _mediator.Send(command, cancellationToken);
             return Ok(userMedicine);
         }
 
-        private Guid GetUserId()
-        {
-            return Guid.Parse(User?.Claims
-                .FirstOrDefault(c => c.Type == "UserId")?.Value);
-        }
-
         // PUT api/<UserMedicineController>/5
-        [HttpPut("{userMedecineId}")]
-        public async Task<ActionResult<UserMedicine>> Put(Guid userMedecineId, [FromBody] UserMedicineViewModel userMedicineVm,
+        [HttpPut]
+        public async Task<ActionResult<UserMedicine>> Put(UpdateUserMedicineDto updateUserMedicineDto,
             CancellationToken cancellationToken)
         {
-            try
-            {
-               var updatedUserMedecine = await _userMedicineService
-                   .UpdateUserMedicine(userMedecineId, userMedicineVm, cancellationToken);
-               return Ok(updatedUserMedecine);
-            }
-            catch (NotFoundException e)
-            {
-                return NotFound($"UserMedicine not found (Exception: {e.Message})");
-            }
+            var command = _mapper.Map<UpdateUserMedicineCommand>(updateUserMedicineDto);
+            command.UserId = UserId;
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
 
         // DELETE api/<UserMedicineController>/5
-        [HttpDelete("{userMedicineId}")]
-        public async Task<ActionResult> Delete(Guid userMedicineId, CancellationToken cancellationToken)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<UserMedicine>> Delete(Guid id)
         {
-            try
+            var command = new DeleteUserMedicineCommand()
             {
-                await _userMedicineService.DeleteUserMedicine(userMedicineId, cancellationToken);
-                return Ok();
-            }
-            catch (NotFoundException e)
-            {
-                return NotFound($"UserMedicine not found (Exception: {e.Message})");
-            }
+                Id = id,
+                UserId = UserId
+            };
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
     }
 }

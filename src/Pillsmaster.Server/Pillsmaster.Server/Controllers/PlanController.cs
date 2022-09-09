@@ -1,8 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using MediatR;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-using Pillsmaster.Application.Common.Exceptions;
-using Pillsmaster.Application.Interfaces;
+using Pillsmaster.API.Dtos;
+using Pillsmaster.Application.Plans.Commands.CreatePlan;
+using Pillsmaster.Application.Plans.Commands.DeletePlan;
+using Pillsmaster.Application.Plans.Commands.UpdatePlan;
+using Pillsmaster.Application.Plans.Queries.GetPlan;
 using Pillsmaster.Application.ViewModels;
 using Pillsmaster.Domain.Models;
 
@@ -13,77 +19,58 @@ namespace Pillsmaster.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class PlanController : ControllerBase
+    public class PlanController : BaseController
     {
-        private readonly IPlanService _planService;
-
-        public PlanController(IPlanService planService)
-        {
-            _planService = planService;
-        }
+        public PlanController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
 
         // GET api/<PlanController>/5
-        [HttpGet("{planId}")]
-        public async Task<ActionResult<Plan>> Get(Guid planId, CancellationToken cancellationToken)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PlanViewModel>> Get(Guid id,
+            CancellationToken cancellationToken)
         {
-            try
+            var query = new GetPlanQuery()
             {
-                var plan = await _planService.ReadPlan(planId, cancellationToken);
-                return Ok(plan);
-            }
-            catch (NotFoundException e)
-            {
-                return NotFound($"Plan not found (Exception: {e.Message})");
-            }
+                Id = id,
+                UserId = UserId
+            };
+            var plan = await _mediator.Send(query, cancellationToken);
+            return Ok(plan);
         }
 
         // POST api/<PlanController>
         [HttpPost]
-        public async Task<ActionResult<Plan>> Post([FromBody] PlanViewModel planVm, 
+        public async Task<ActionResult<Plan>> Post([FromBody] CreatePlanDto createPlanDto, 
             CancellationToken cancellationToken)
         {
-            var userId = GetUserId();
-            var plan = await _planService.CreatePlan(userId, planVm, cancellationToken);
-
+            var command = _mapper.Map<CreatePlanCommand>(createPlanDto);
+            command.UserId = UserId;
+            var plan = await _mediator.Send(command, cancellationToken);
             return Ok(plan);
         }
 
         // PUT api/<PlanController>/5
-        [HttpPut("{planId}")]
-        public async Task<ActionResult<Plan>> Put(Guid planId, [FromBody] PlanViewModel planVm,
+        [HttpPut]
+        public async Task<ActionResult<Plan>> Put([FromBody] UpdatePlanDto updatePlanDto,
             CancellationToken cancellationToken)
         {
-            try
-            {
-                var updatedPlan = await _planService.UpdatePlan(planId, planVm, cancellationToken);
-                return Ok(updatedPlan);
-            }
-            catch(NotFoundException e)
-            {
-                return NotFound($"Plan not found (Exception: {e.Message})");
-            }
-            
+            var command = _mapper.Map<UpdatePlanCommand>(updatePlanDto);
+            command.UserId = UserId;
+            var plan = await _mediator.Send(command, cancellationToken);
+            return Ok(plan);
         }
 
         // DELETE api/<PlanController>/5
-        [HttpDelete("{planId}")]
-        public async Task<ActionResult> Delete(Guid planId, CancellationToken cancellationToken)
+        [HttpDelete]
+        public async Task<ActionResult> Delete([FromBody] Guid id, 
+            CancellationToken cancellationToken)
         {
-            try
+            var command = new DeletePlanCommand()
             {
-                await _planService.DeletePlan(planId, cancellationToken);
-                return Ok();
-            }
-            catch (NotFoundException e)
-            {
-                return NotFound($"Plan not found (Exception: {e.Message})");
-            }
-        }
-
-        private Guid GetUserId()
-        {
-            return Guid.Parse(User?.Claims
-                .FirstOrDefault(c => c.Type == "UserId")?.Value);
+                Id = id,
+                UserId = UserId
+            };
+            var plan = await _mediator.Send(command, cancellationToken);
+            return Ok(plan);
         }
     }
 }
