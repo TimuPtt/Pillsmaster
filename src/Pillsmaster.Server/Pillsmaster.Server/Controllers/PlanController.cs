@@ -8,7 +8,9 @@ using Pillsmaster.API.Dtos;
 using Pillsmaster.Application.Plans.Commands.CreatePlan;
 using Pillsmaster.Application.Plans.Commands.DeletePlan;
 using Pillsmaster.Application.Plans.Commands.UpdatePlan;
+using Pillsmaster.Application.Plans.Commands.UpdatePlanAtTake;
 using Pillsmaster.Application.Plans.Queries.GetPlan;
+using Pillsmaster.Application.Plans.Queries.GetPlansInf;
 using Pillsmaster.Application.ViewModels;
 using Pillsmaster.Domain.Models;
 
@@ -36,6 +38,17 @@ namespace Pillsmaster.API.Controllers
             var plan = await _mediator.Send(query, cancellationToken);
             return Ok(plan);
         }
+        
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PlanInfoViewModel>>> GetPlansInf(CancellationToken cancellationToken)
+        {
+            var query = new GetPlansInfQuery()
+            {
+                UserId = UserId
+            };
+            var plan = await _mediator.Send(query, cancellationToken);
+            return Ok(plan);
+        }
 
         // POST api/<PlanController>
         [HttpPost]
@@ -54,6 +67,17 @@ namespace Pillsmaster.API.Controllers
             CancellationToken cancellationToken)
         {
             var command = _mapper.Map<UpdatePlanCommand>(updatePlanDto);
+            command.UserId = UserId;
+            var plan = await _mediator.Send(command, cancellationToken);
+            return Ok(plan);
+        }
+        // PUT api/<PlanController>/5
+        [HttpPut]
+        [Route("AtTake")]
+        public async Task<ActionResult<Plan>> PutAtTake([FromBody] UpdatePlanAtTakeDto updatePlanAtTakeDto,
+            CancellationToken cancellationToken)
+        {
+            var command = _mapper.Map<UpdatePlanAtTakeCommand>(updatePlanAtTakeDto);
             command.UserId = UserId;
             var plan = await _mediator.Send(command, cancellationToken);
             return Ok(plan);

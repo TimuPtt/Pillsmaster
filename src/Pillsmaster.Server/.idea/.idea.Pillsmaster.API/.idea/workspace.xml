@@ -6,30 +6,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2dd332c1-0408-4267-b1f4-e72194472149" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/Common/Behaviors/LoggingBehavior.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/Interfaces/ICurrentUserService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Server/Services/CurrentUserService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Common/PillsmasterContextFactory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Common/QueryTestFixture.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Common/TestCommandBase.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Plans/Commands/CreatePlanCommandHandlerTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Plans/Commands/DeletePlanCommandHandlerTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Plans/Commands/UpdatePlanCommandHandlerTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/Plans/Queries/GetPlanQueryHandlerTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/UserMedicines/Commands/CreateUserMedicineCommandHandlerTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/UserMedicines/Commands/DeleteUserMedicineCommandHandlerTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/UserMedicines/Commands/UpdateUserMedicineCommandHandlerTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pillsmaster.Tests/UserMedicines/Queries/GetUserMedicinesQueryHandlerTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/Plans/Commands/UpdatePlanAtTake/UpdatePlanAtTakeCommand.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/Plans/Commands/UpdatePlanAtTake/UpdatePlanAtTakeCommandHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/Plans/Queries/GetPlansInf/GetPlansInfQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/Plans/Queries/GetPlansInf/GetPlansInfQueryHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Application/ViewModels/PlanInfoViewModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Pillsmaster.Server/Dtos/UpdatePlanAtTakeDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient.Android/Resources/Resource.designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient.Android/Resources/Resource.designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/App.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Common/Interfaces/Services/IPlanService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Common/Interfaces/Services/IPlanService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Common/Interfaces/Services/IUserMedicineService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Common/Interfaces/Services/IUserMedicineService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Models/MedicationDayModels/MedicationDay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Models/MedicationDayModels/MedicationDay.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Models/PlanModels/Plan.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Models/PlanModels/Plan.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Models/TakeModels/Take.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Models/TakeModels/Take.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Models/UserMedicineModels/UserMedicine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Models/UserMedicineModels/UserMedicine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Services/AuthenticationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Services/AuthenticationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Services/BaseService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Services/BaseService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Services/PlanService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Services/PlanService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Services/UserMedecineService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/ViewModels/AddMedicineSequenceViewModels/AddPlanViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/ViewModels/AddMedicineSequenceViewModels/AddPlanViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/ViewModels/MainPageViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/ViewModels/MainPageViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/ViewModels/PlanPageViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/ViewModels/PlanPageViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Views/MainPage.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Views/MainPage.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Views/MainPage.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Views/MainPage.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Views/PlanPage.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/../Pillsmaster.Client/PillsmasterClient/PillsmasterClient/Views/PlanPage.xaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pillsmaster.API/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pillsmaster.API/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pillsmaster.API.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.API.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/DependencyInjection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/DependencyInjection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/Pillsmaster.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/Pillsmaster.Application.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/UserMedicines/Queries/GetUserMedicines/GetUserMedicineQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/UserMedicines/Queries/GetUserMedicines/GetUserMedicinesQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/UserMedicines/Queries/GetUserMedicines/GetUserMedicinesQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/UserMedicines/Queries/GetUserMedicines/GetUserMedicinesQueryHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pillsmaster.Server/Controllers/UserMedicineController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Server/Controllers/UserMedicineController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pillsmaster.Server/Middleware/CustomExceptionHandlerMiddleware.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Server/Middleware/CustomExceptionHandlerMiddleware.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pillsmaster.Server/Pillsmaster.API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Server/Pillsmaster.API.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pillsmaster.Server/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Server/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/Plans/Commands/CreatePlan/CreatePlanCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/Plans/Commands/CreatePlan/CreatePlanCommandValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/Plans/Commands/UpdatePlan/UpdatePlanCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/Plans/Commands/UpdatePlan/UpdatePlanCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/Plans/Queries/GetPlan/GetPlanQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/Plans/Queries/GetPlan/GetPlanQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Application/ViewModels/UserMedicineViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Application/ViewModels/UserMedicineViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Core/Models/UserDetails.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Core/Models/UserDetails.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pillsmaster.Server/Controllers/PlanController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pillsmaster.Server/Controllers/PlanController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,6 +123,9 @@
       <workItem from="1662486056470" duration="6475000" />
       <workItem from="1662548359547" duration="14709000" />
       <workItem from="1662635846321" duration="13063000" />
+      <workItem from="1662992946941" duration="7265000" />
+      <workItem from="1663070050917" duration="12900000" />
+      <workItem from="1663151335137" duration="3840000" />
     </task>
     <servers />
   </component>

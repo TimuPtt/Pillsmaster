@@ -14,11 +14,11 @@ using Xamarin.Forms;
 
 namespace PillsmasterClient.ViewModels.AddMedicineSequenceViewModels
 {
-    [QueryProperty(nameof(MedicineRequest), nameof(MedicineRequest))]
+    [QueryProperty(nameof(UserMedicineRequest), nameof(UserMedicineRequest))]
     public class AddMedicationDayViewModel : BaseViewModel
     {
         public IAsyncCommand GoNextAsyncCommand { get; }
-        public string MedicineRequest { get; set; }
+        public string UserMedicineRequest { get; set; }
 
         private List<TakeViewModel> takeTimes;
 
@@ -84,7 +84,7 @@ namespace PillsmasterClient.ViewModels.AddMedicineSequenceViewModels
             var medicationDayRequestJson = JsonConvert.SerializeObject(medicationDayRequest);
 
             await Shell.Current.GoToAsync(
-                $"{nameof(AddPlanPage)}?TakesRequestJson={takeRequestsJson}&MedicineRequestJson={MedicineRequest}&MedicationDayRequestJson={medicationDayRequestJson}");
+                $"{nameof(AddPlanPage)}?TakesRequestJson={takeRequestsJson}&UserMedicineRequestJson={UserMedicineRequest}&MedicationDayRequestJson={medicationDayRequestJson}");
         }
 
     }

@@ -14,27 +14,27 @@ public class UpdatePlanCommandHandler : BaseCommandHandler,
 
     public async Task<Plan> Handle(UpdatePlanCommand request, CancellationToken cancellationToken)
     {
-        var entitie = await _dbContext.Plans
+        var entity = await _dbContext.Plans
             .Include(plan => plan.MedicationDay)
             .Include(plan => plan.Takes)
             .FirstOrDefaultAsync(plan => plan.Id == request.Id, cancellationToken)!;
 
-        if (entitie is null || request.UserId != entitie.UserId)
+        if (entity is null || request.UserId != entity.UserId)
             throw new NotFoundException(typeof(Plan), request.Id);
 
-        entitie.MedicineCount = request.MedicineCount;
-        entitie.Duration = request.Duration;
-        entitie.IsEnoughToFinish = request.IsEnoughToFinish;
-        entitie.FoodStatusId = request.FoodStatusId;
-        entitie.PlanStatusId = request.PlanStatusId;
-        entitie.MedicationDay!.TakesPerDay = request.TakesPerDay;
-        entitie.MedicationDay!.CountPerTake = request.CountPerTake;
-        entitie.StartDate = request.StartDate;
-        entitie.TakesCount = request.TakesCount;
-        entitie.NextTakeTime = request.NextTakeTime;
+        entity.MedicineCount = request.MedicineCount;
+        entity.Duration = request.Duration;
+        entity.IsEnoughToFinish = request.IsEnoughToFinish;
+        entity.FoodStatusId = request.FoodStatusId;
+        entity.PlanStatusId = request.PlanStatusId;
+        entity.MedicationDay!.TakesPerDay = request.TakesPerDay;
+        entity.MedicationDay!.CountPerTake = request.CountPerTake;
+        entity.StartDate = request.StartDate;
+        entity.TakesCount = request.TakesCount;
+        entity.NextTakeTime = request.NextTakeTime;
 
         await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-        return entitie;
+        return entity;
     }
 }

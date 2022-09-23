@@ -26,7 +26,7 @@
                     <StackLayout Orientation="Horizontal">
                         <Image
                             HeightRequest="80"
-                            Source="{Binding UserMedicine.Medicine.Image}"
+                            Source="{Binding PlanInf.Image}"
                             WidthRequest="80">
                             <Image.Clip>
                                 <EllipseGeometry
@@ -53,7 +53,7 @@
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
                                 FontSize="25"
-                                Text="{Binding UserMedicine.Medicine.TradeName}"
+                                Text="{Binding PlanInf.TradeName}"
                                 VerticalOptions="Center" />
                             <BoxView
                                 Grid.Row="1"
@@ -107,20 +107,20 @@
                                 <EntryCell
                                     HorizontalTextAlignment="End"
                                     Label="Торговое название"
-                                    Text="{Binding UserMedicine.Medicine.TradeName}" />
+                                    Text="{Binding PlanInf.TradeName}" />
                                 <EntryCell
                                     HorizontalTextAlignment="End"
                                     Label="Научное название"
-                                    Text="{Binding UserMedicine.Medicine.InternationalName}" />
+                                    Text="{Binding PlanInf.InternationalName}" />
                                 <EntryCell
                                     HorizontalTextAlignment="End"
                                     Label="Тип"
-                                    Text="{Binding UserMedicine.Medicine.PharmaType}" />
+                                    Text="{Binding PlanInf.PharmaType}" />
                                 <EntryCell
                                     HorizontalTextAlignment="End"
                                     Keyboard="Numeric"
                                     Label="Дозировка, мг"
-                                    Text="{Binding UserMedicine.Medicine.ActiveIngredientCount}" />
+                                    Text="{Binding PlanInf.ActiveIngredientCount}" />
                             </TableSection>
 
                             <TableSection Title="Количество лекарства">

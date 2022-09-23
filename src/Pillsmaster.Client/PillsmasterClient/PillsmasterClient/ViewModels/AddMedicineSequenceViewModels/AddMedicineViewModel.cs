@@ -7,6 +7,7 @@ using MvvmHelpers.Interfaces;
 using Newtonsoft.Json;
 using PillsmasterClient.Models.MedicineModels;
 using PillsmasterClient.Models.TakeModels;
+using PillsmasterClient.Models.UserMedicineModels;
 using PillsmasterClient.Views.AddMedicineSequence;
 
 using Xamarin.Forms;
@@ -16,8 +17,6 @@ namespace PillsmasterClient.ViewModels.AddMedicineSequenceViewModels
     public class AddMedicineViewModel : BaseViewModel
     {
         public IAsyncCommand GoNextAsyncCommand { get; }
-
-        
 
         private string tradeName;
         public string TradeName
@@ -39,7 +38,14 @@ namespace PillsmasterClient.ViewModels.AddMedicineSequenceViewModels
         public string PharmaType
         {
             get => pharmaType;
-            set => SetProperty(ref pharmaType, value);
+            set
+            {
+                SetProperty(ref pharmaType, value);
+                if (value == "Таблеки")
+                    pharmaTypeId = 1;
+                else if (value == "Капсулы")
+                    pharmaTypeId = 2;
+            }
         }
 
         private int activeIngredientCount;
@@ -50,14 +56,8 @@ namespace PillsmasterClient.ViewModels.AddMedicineSequenceViewModels
             set => SetProperty(ref activeIngredientCount, value);
         }
 
-        private MedicineRequest medicine;
-        public IAsyncCommand GoNextAsync;
+        private int pharmaTypeId;
 
-        public MedicineRequest Medicine
-        {
-            get => medicine;
-            set => SetProperty(ref medicine, value);
-        }
 
         public AddMedicineViewModel()
         {
@@ -66,19 +66,19 @@ namespace PillsmasterClient.ViewModels.AddMedicineSequenceViewModels
 
         public async Task OnNextClicked()
         {
-            if (TradeName != null && InternationalName != null && PharmaType != null && ActiveIngredientCount != null)
+            if (TradeName != null && InternationalName != null && PharmaType != null && ActiveIngredientCount > 0)
             {
-                var medicineRequest = new MedicineRequest()
+                var userMedicineRequest = new UserMedecineRequest()
                 {
                     TradeName = TradeName,
                     InternationalName = InternationalName,
-                    PharmaType = PharmaType,
+                    PharmaTypeId = pharmaTypeId,
                     ActiveIngredientCount = ActiveIngredientCount
                 };
 
-                var json = JsonConvert.SerializeObject(medicineRequest);
+                var json = JsonConvert.SerializeObject(userMedicineRequest);
 
-                await Shell.Current.GoToAsync($"{nameof(AddMedicationDayPage)}?MedicineRequest={json}");
+                await Shell.Current.GoToAsync($"{nameof(AddMedicationDayPage)}?UserMedicineRequest={json}");
                 return;
             }
 

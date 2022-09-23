@@ -9,7 +9,7 @@ namespace PillsmasterClient.Services
 {
     public abstract class BaseService
     {
-        private readonly string _baseUrl = "https://192.168.1.70:7196";
+        private readonly string _baseUrl = "https://192.168.100.7:7196";
 
         private protected readonly HttpClient _httpClient;
 

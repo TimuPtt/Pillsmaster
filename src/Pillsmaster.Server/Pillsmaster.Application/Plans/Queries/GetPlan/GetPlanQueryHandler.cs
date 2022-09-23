@@ -21,6 +21,7 @@ public class GetPlanQueryHandler : BaseQueryHandler,
         var entity = await _dbContext.Plans
             .Include(plan => plan.MedicationDay)
             .Include(plan => plan.UserMedicine)
+            .Include(plan => plan.UserMedicine!.PharmaType)
             .Include(plan => plan.Takes)
             .Include(plan => plan.FoodStatus)
             .Include(plan => plan.PlanStatus)

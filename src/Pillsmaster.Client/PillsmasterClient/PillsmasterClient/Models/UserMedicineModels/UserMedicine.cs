@@ -7,13 +7,10 @@ namespace PillsmasterClient.Models.UserMedicineModels
     public class UserMedicine
     {
         public Guid Id { get; set; }
-
-        public Guid UserId { get; set; }
-
-        public Guid UserPlanId { get; set; }
-
-        public Guid MedicineId { get; set; }
-
-        public Medicine Medicine { get; set; }
+        public string TradeName { get; set; }
+        public string InternationalName { get; set; }
+        public int PharmaTypeId { get; set; }
+        public string PharmaType { get; set; }
+        public int ActiveIngredientCount { get; set; }
     }
 }

@@ -39,16 +39,16 @@ namespace PillsmasterClient.ViewModels
             {
                 content = Uri.UnescapeDataString(value ?? string.Empty);
                 OnPropertyChanged();
-                UserMedicine = JsonConvert.DeserializeObject<UserMedicine>(content);
-                Title = UserMedicine?.Medicine.TradeName;
+                PlanInf = JsonConvert.DeserializeObject<PlanInf>(content);
+                Title = PlanInf?.TradeName;
             }
         }
 
-        private UserMedicine userMedicine;
-        public UserMedicine UserMedicine
+        private PlanInf planInf;
+        public PlanInf PlanInf
         {
-            get => userMedicine;
-            set => SetProperty(ref userMedicine, value);
+            get => planInf;
+            set => SetProperty(ref planInf, value);
         }
 
         private Plan plan;
@@ -76,7 +76,9 @@ namespace PillsmasterClient.ViewModels
             IsBusy = true;
             await Task.Delay(500);
 
-            var plan = await _planService.GetPlanAsync(userMedicine.UserPlanId);
+            var plan = new Plan(); 
+
+            plan = await _planService.GetPlanAsync(PlanInf.Id);
 
             if (plan != null)
             {
@@ -132,30 +134,19 @@ namespace PillsmasterClient.ViewModels
                 });
             }
 
-            var planRequest = new PlanRequest()
+            var planRequest = new UpdatePlanAtTakeRequest()
             {
-                Duration = plan.Duration,
-                FoodStatus = plan.FoodStatus,
-                IsEnoughToFinish = plan.IsEnoughToFinish,
-                IsFoodDependent = plan.IsFoodDependent,
-                MedicationDay = new MedicationDayRequest()
-                {
-                    CountPerTake = plan.MedicationDay.CountPerTake,
-                    TakesPerDay = plan.MedicationDay.TakesPerDay
-                },
+                Id = plan.Id,
                 MedicineCount = plan.MedicineCount,
                 NextTakeTime = plan.NextTakeTime,
-                PlanStatus = plan.PlanStatus,
-                StartDate = plan.StartDate,
-                Takes = takeRequests
             };
 
-            _planService.UpdatePlanAsync(plan.Id, planRequest);
+            _planService.UpdatePlanAtTakeAsync(planRequest);
         }
 
         private void SetNotification()
         {
-            _notificationService.SetNextNotification(UserMedicine.Medicine.TradeName, Plan.MedicationDay.CountPerTake, Plan.NextTakeTime);
+            _notificationService.SetNextNotification(PlanInf.TradeName, Plan.MedicationDay.CountPerTake, Plan.NextTakeTime);
         }
     }
 }

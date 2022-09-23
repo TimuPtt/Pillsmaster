@@ -18,25 +18,24 @@ using Xamarin.Forms;
 
 namespace PillsmasterClient.ViewModels.AddMedicineSequenceViewModels
 {
-    [QueryProperty(nameof(MedicineRequestJson), nameof(MedicineRequestJson)), QueryProperty(nameof(TakesRequestJson), nameof(TakesRequestJson)), QueryProperty(nameof(MedicationDayRequestJson), nameof(MedicationDayRequestJson))]
+    [QueryProperty(nameof(UserMedicineRequestJson), nameof(UserMedicineRequestJson)), QueryProperty(nameof(TakesRequestJson), nameof(TakesRequestJson)), QueryProperty(nameof(MedicationDayRequestJson), nameof(MedicationDayRequestJson))]
    // [QueryProperty(nameof(TakesRequestJson), nameof(TakesRequestJson))]
    // [QueryProperty(nameof(MedicationDayRequestJson), nameof(MedicationDayRequestJson))]
     public class AddPlanViewModel : BaseViewModel
    {
-        private readonly IMedicineService _medicineService;
         private readonly IPlanService _planService;
         private readonly IUserMedicineService _userMedicineService;
         private readonly INotificationService _notificationService;
 
         public IAsyncCommand DoneAsyncCommand { get; }
 
-        public string MedicineRequestJson { get; set; }
+        public string UserMedicineRequestJson { get; set; }
         public string TakesRequestJson { get; set; }
         public string MedicationDayRequestJson { get; set; }
 
         public MedicationDayRequest MedicationDayRequest { get; set; }
         private List<TakeRequest> TakesRequest { get; set; }
-        public MedicineRequest MedicineRequest { get; set; }
+        public UserMedecineRequest UserMedicineRequest { get; set; }
 
         private int medicineCount;
 
@@ -66,7 +65,7 @@ namespace PillsmasterClient.ViewModels.AddMedicineSequenceViewModels
 
         public bool IsFoodDependent { get; set; } = false;
 
-        public string PlanStatus { get; set; } = "Активный";
+        public int PlanStatusId { get; set; } = 1;
 
         public int TakesCount { get; set; } = 1;
 
@@ -74,7 +73,6 @@ namespace PillsmasterClient.ViewModels.AddMedicineSequenceViewModels
         public AddPlanViewModel()
         {
             DoneAsyncCommand = new AsyncCommand(OnDoneClicked);
-            _medicineService = DependencyService.Get<IMedicineService>();
             _planService = DependencyService.Get<IPlanService>();
             _userMedicineService = DependencyService.Get<IUserMedicineService>();
             _notificationService = DependencyService.Get<INotificationService>();
@@ -82,39 +80,33 @@ namespace PillsmasterClient.ViewModels.AddMedicineSequenceViewModels
 
         public async Task OnDoneClicked()
         {
-            MedicineRequest = JsonConvert.DeserializeObject<MedicineRequest>(MedicineRequestJson);
+            UserMedicineRequest = JsonConvert.DeserializeObject<UserMedecineRequest>(UserMedicineRequestJson);
             MedicationDayRequest = JsonConvert.DeserializeObject<MedicationDayRequest>(MedicationDayRequestJson);
             TakesRequest = JsonConvert.DeserializeObject<List<TakeRequest>>(TakesRequestJson);
 
             var planRequest = new PlanRequest()
             {
-                MedicineCount = MedicineCount,
+                MedicineCount = MedicineCount, 
                 Duration = Duration,
-                FoodStatus = FoodStatus,
+                FoodStatusId = 1,
                 IsEnoughToFinish = IsEnoughToFinish,
                 IsFoodDependent = IsFoodDependent,
                 MedicationDay = MedicationDayRequest,
                 NextTakeTime = CalculateNextTakeDateTime(),
-                PlanStatus = PlanStatus,
+                PlanStatusId = 1,
                 StartDate = DateTime.Now,
                 Takes = TakesRequest
             };
 
-            _notificationService.SetNextNotification(MedicineRequest.TradeName, planRequest.MedicationDay.CountPerTake, planRequest.NextTakeTime);
+            _notificationService.SetNextNotification(UserMedicineRequest.TradeName, planRequest.MedicationDay.CountPerTake, planRequest.NextTakeTime);
 
-            var medicineId = await _medicineService.PostMedicineAsync(MedicineRequest);
+            var userMedicine = await _userMedicineService.PostUserMedicine(UserMedicineRequest);
+
+            planRequest.UserMedicineId = userMedicine.Id;
 
             var plan = await _planService.PostPlanAsync(planRequest);
 
-            var userMedicineRequest = new UserMedecineRequest()
-            {
-                UserPlanId = plan.Id,
-                MedicineId = medicineId
-            };
-
-            var userMedicine = _userMedicineService.PostUserMedicineAsync(userMedicineRequest);
-
-            await Shell.Current.DisplayAlert("Успешно!", $"Лекарство {MedicineRequest.TradeName} добавлено",
+            await Shell.Current.DisplayAlert("Успешно!", $"Лекарство {UserMedicineRequest.TradeName} добавлено",
                 "На главную");
 
             await Shell.Current.GoToAsync($"///{nameof(MainPage)}")

@@ -28,12 +28,29 @@ namespace PillsmasterClient.Services
             return null;
         }
 
-        public async Task<Plan> UpdatePlanAsync(Guid planId, PlanRequest request)
+        public async Task<Plan> UpdatePlanAsync(PlanRequest request)
         {
             var json = JsonConvert.SerializeObject(request);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PutAsync($"/api/Plan/{planId}", content);
+            var response = await _httpClient.PutAsync($"/api/Plan", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var updatedPlan = JsonConvert.DeserializeObject<Plan>(responseContent);
+                return updatedPlan;
+            }
+
+            return null;
+        }
+
+        public async Task<Plan> UpdatePlanAtTakeAsync(UpdatePlanAtTakeRequest request)
+        {
+            var json = JsonConvert.SerializeObject(request);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PutAsync($"/api/Plan/AtTake", content);
 
             if (response.IsSuccessStatusCode)
             {

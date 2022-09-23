@@ -13,7 +13,7 @@ namespace PillsmasterClient.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        static string BaseUrl = "https://192.168.1.70:7196";
+        static string BaseUrl = "https://192.168.100.7:7196";
 
         public async Task<string> Login(string email, string password)
         {

@@ -1,6 +1,6 @@
 ﻿using PillsmasterClient.Common.Interfaces.Services;
 using PillsmasterClient.Services;
-
+using Refit;
 using Xamarin.Forms;
 
 namespace PillsmasterClient
@@ -16,8 +16,9 @@ namespace PillsmasterClient
             DependencyService.Register<INotificationService, NotificationService>();
             DependencyService.Register<IPlanService, PlanService>();
             DependencyService.Register<ITakeService, TakeService>();
-            DependencyService.Register<IUserMedicineService, UserMedicineService>();
+            DependencyService.Register<IPlanInfService, PlanInfService>();
             DependencyService.Register<IMedicineService, MedicineService>();
+            DependencyService.Register<IUserMedicineService, UserMedicineService>();
 
             MainPage = new AppShell();
         }

@@ -3,7 +3,7 @@
     x:Class="PillsmasterClient.Views.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:model="clr-namespace:PillsmasterClient.Models.UserMedicineModels;assembly=PillsmasterClient"
+    xmlns:model="clr-namespace:PillsmasterClient.Models.PlanModels;assembly=PillsmasterClient"
     xmlns:viewModels="clr-namespace:PillsmasterClient.ViewModels;assembly=PillsmasterClient"
     Title="Лекарства"
     x:DataType="viewModels:MainPageViewModel">
@@ -17,12 +17,12 @@
         IsPullToRefreshEnabled="True"
         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
         ItemTapped="OnItemTapped"
-        ItemsSource="{Binding UserMedicines}"
+        ItemsSource="{Binding PlanInfs}"
         RefreshCommand="{Binding RefreshCommand}"
         SelectionMode="None"
         SeparatorVisibility="None">
         <ListView.ItemTemplate>
-            <DataTemplate x:DataType="model:UserMedicine">
+            <DataTemplate x:DataType="model:PlanInf">
                 <ViewCell>
                     <ViewCell.ContextActions>
                         <MenuItem IsDestructive="True" Text="Delete" />
@@ -34,7 +34,7 @@
                                     <Image
                                         HeightRequest="80"
                                         HorizontalOptions="Center"
-                                        Source="{Binding Medicine.Image}"
+                                        Source="{Binding Image}"
                                         VerticalOptions="Center"
                                         WidthRequest="80">
                                         <Image.Clip>
@@ -52,8 +52,13 @@
                                             WidthRequest="270">
                                             <Label
                                                 FontSize="Large"
-                                                Text="{Binding Medicine.TradeName}"
-                                                VerticalOptions="Center" />
+                                                VerticalOptions="Center" >
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding TradeName}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
                                             <Frame
                                                 Padding="8,6,8,6"
                                                 BackgroundColor="{AppThemeBinding Light={StaticResource AccentLight},
@@ -64,24 +69,35 @@
                                                 <StackLayout Orientation="Horizontal">
                                                     <Label
                                                         FontSize="Small"
-                                                        Text="{Binding Medicine.ActiveIngredientCount}"
+                                                        Text="{Binding ActiveIngredientCount}"
                                                         VerticalOptions="Center" />
                                                     <Label FontSize="Small" Text="мг" />
                                                 </StackLayout>
                                             </Frame>
-
                                         </StackLayout>
 
                                         <Label
                                             FontSize="Micro"
-                                            Text="{Binding Medicine.InternationalName, Mode=OneWay}"
+                                            Text="{Binding InternationalName, Mode=OneWay}"
                                             TextColor="{AppThemeBinding Light={StaticResource GrayDark},
                                                                         Dark={StaticResource GrayDark}}"
                                             VerticalOptions="Center" />
-                                        <Label
+                                        <StackLayout Orientation="Horizontal" >
+                                            <Label
                                             FontSize="Small"
-                                            Text="{Binding Medicine.PharmaType, Mode=OneWay}"
+                                            Text="{Binding PharmaType, Mode=OneWay}"
                                             VerticalOptions="Center" />
+                                            <Label FontSize="Small" VerticalOptions="End" 
+                                                   TextColor="{AppThemeBinding Light={StaticResource GrayDark}, Dark={StaticResource GrayDark}}" 
+                                                   HorizontalOptions="EndAndExpand">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding TakesPerDay}" FontSize="Micro"/>
+                                                        <Span Text=" р. в день" FontSize="Micro"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </StackLayout>
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>

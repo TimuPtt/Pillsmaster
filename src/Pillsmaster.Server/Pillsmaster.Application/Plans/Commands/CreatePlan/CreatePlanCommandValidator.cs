@@ -15,9 +15,9 @@ public class CreatePlanCommandValidator : AbstractValidator<CreatePlanCommand>
             command.MedicineCount).NotEmpty().GreaterThan(0);
         RuleFor(command =>
             command.Duration).NotEmpty().GreaterThan(0);
-        RuleFor(command => command.IsEnoughToFinish).NotEmpty();
+        RuleFor(command => command.IsEnoughToFinish).NotNull();
         RuleFor(command => command.FoodStatusId).NotEmpty().GreaterThan(0);
-        RuleFor(command => command.IsFoodDependent).NotEmpty();
+        RuleFor(command => command.IsFoodDependent).NotNull();
         RuleFor(command => command.PlanStatusId).NotEmpty().GreaterThan(0);
         RuleFor(command => command.MedicationDay).NotEmpty();
         RuleFor(command => command.StartDate).NotEmpty();

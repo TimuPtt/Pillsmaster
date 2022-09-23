@@ -4,6 +4,7 @@ using MvvmHelpers;
 using MvvmHelpers.Commands;
 using MvvmHelpers.Interfaces;
 using PillsmasterClient.Common.Interfaces.Services;
+using PillsmasterClient.Models.PlanModels;
 using PillsmasterClient.Models.UserMedicineModels;
 using PillsmasterClient.Views;
 using PillsmasterClient.Views.AddMedicineSequence;
@@ -13,22 +14,22 @@ namespace PillsmasterClient.ViewModels
 {
     internal class MainPageViewModel : BaseViewModel
     {
-        private readonly IUserMedicineService _userMedicineService;
+        private readonly IPlanInfService _planInfService;
 
-        public ObservableRangeCollection<UserMedicine> UserMedicines { get; set; }
+        public ObservableRangeCollection<PlanInf> PlanInfs { get; set; }
         public IAsyncCommand LogoutCommand { get; }
         public IAsyncCommand RefreshCommand { get; }
         public IAsyncCommand AddCommand { get; }
-        public IAsyncCommand<UserMedicine> RemoveCommand { get; }
+        public IAsyncCommand<PlanInf> RemoveCommand { get; }
 
         public MainPageViewModel()
         {
-            UserMedicines = new ObservableRangeCollection<UserMedicine>();
+            PlanInfs = new ObservableRangeCollection<PlanInf>();
             LogoutCommand = new AsyncCommand(OnLogoutClicked);
             RefreshCommand = new AsyncCommand(Refresh);
             AddCommand = new AsyncCommand(OnAddClicked);
 
-            _userMedicineService = DependencyService.Get<IUserMedicineService>();
+            _planInfService = DependencyService.Get<IPlanInfService>();
 
             Refresh();
         }
@@ -46,13 +47,13 @@ namespace PillsmasterClient.ViewModels
 
             //await Task.Delay(500);
 
-            UserMedicines.Clear();
+            PlanInfs.Clear();
 
-            var userMedicines = await _userMedicineService.GetUserMedicinesAsync();
+            var planInfs = await _planInfService.GetPlanInfAsync();
 
-            if (userMedicines != null)
+            if (planInfs != null)
             {
-                UserMedicines.AddRange(userMedicines);
+                PlanInfs.AddRange(planInfs);
 
                 IsBusy = false;
 
@@ -67,7 +68,7 @@ namespace PillsmasterClient.ViewModels
         public async Task OnItemTapped(object obj, ItemTappedEventArgs e)
         {
             var userMedicine = e.Item as UserMedicine;
-            await Shell.Current.DisplayAlert("Tapped", userMedicine.Medicine.TradeName, "Ok");
+            await Shell.Current.DisplayAlert("Tapped", userMedicine.TradeName, "Ok");
         }
 
         public async Task OnAddClicked()
